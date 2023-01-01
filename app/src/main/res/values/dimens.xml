@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="button_text">20sp</dimen>
+    <dimen name="departure_text">20sp</dimen>
+    <dimen name="destination_text">20sp</dimen>
+    <dimen name="passenger_text">18sp</dimen>
+    <dimen name="toolbar_text">18sp</dimen>
+</resources>

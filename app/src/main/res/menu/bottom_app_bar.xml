@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bookingFragment"
+        android:icon="@drawable/search_book"
+        android:title="@string/book"
+        android:enabled="true"
+        android:contentDescription="@string/book"
+        />
+
+    <item
+        android:id="@+id/tripsFragment"
+        android:icon="@drawable/arrow_outward_my_rtips"
+        android:title="@string/my_trips"
+        android:enabled="true"
+        android:contentDescription="@string/my_trips"
+        />
+
+    <item
+        android:id="@+id/parcelFragment"
+        android:icon="@drawable/shipping_parcel_icon"
+        android:title="@string/parcel"
+        android:enabled="true"
+        android:contentDescription="@string/parcel"
+        />
+
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/profile_account"
+        android:title="@string/profile"
+        android:enabled="true"
+        android:contentDescription="@string/profile"
+        />
+</menu>

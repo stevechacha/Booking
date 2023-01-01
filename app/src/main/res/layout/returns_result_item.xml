@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/busIcon"
+                android:layout_width="70dp"
+                android:layout_height="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.046"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/typeOfBus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tyepe of bus"
+                app:layout_constraintBottom_toBottomOf="@+id/busIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.101"
+                app:layout_constraintStart_toEndOf="@+id/busIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.337" />
+
+            <TextView
+                android:id="@+id/typeOfTicket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type of Ticket"
+                app:layout_constraintBottom_toBottomOf="@+id/busIcon"
+                app:layout_constraintEnd_toEndOf="@+id/typeOfBus"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/typeOfBus"
+                app:layout_constraintTop_toBottomOf="@+id/typeOfBus"
+                app:layout_constraintVertical_bias="0.281" />
+
+            <TextView
+                android:id="@+id/Fare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fare: 2000"
+                app:layout_constraintBottom_toBottomOf="@+id/typeOfTicket"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.801"
+                app:layout_constraintStart_toEndOf="@+id/busIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.586" />
+
+            <TextView
+                android:id="@+id/Onward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Onward Trip"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.045"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/busIcon" />
+
+            <TextView
+                android:id="@+id/DepartureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Departure Time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.038"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Onward" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="100dp"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/DurationOfTravel"
+                app:layout_constraintEnd_toStartOf="@+id/ArrivalTime"
+                app:layout_constraintHorizontal_bias="0.406"
+                app:layout_constraintStart_toEndOf="@+id/DepartureTime"
+                app:layout_constraintTop_toBottomOf="@+id/typeOfTicket"
+                app:layout_constraintVertical_bias="0.792" />
+
+            <TextView
+                android:id="@+id/ArrivalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="Arrival Time"
+                app:layout_constraintBottom_toBottomOf="@+id/DurationOfTravel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.584"
+                app:layout_constraintStart_toEndOf="@+id/DepartureTime" />
+
+            <TextView
+                android:id="@+id/DeparturePlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Departure Place"
+                app:layout_constraintBottom_toBottomOf="@+id/divider3"
+                app:layout_constraintStart_toStartOf="@+id/DepartureTime"
+                app:layout_constraintTop_toBottomOf="@+id/DepartureTime"
+                app:layout_constraintVertical_bias=".0" />
+
+            <TextView
+                android:id="@+id/DurationOfTravel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Duration"
+                app:layout_constraintEnd_toStartOf="@+id/ArrivalPlace"
+                app:layout_constraintHorizontal_bias="0.434"
+                app:layout_constraintStart_toEndOf="@+id/DeparturePlace"
+                tools:layout_editor_absoluteY="143dp" />
+
+            <TextView
+                android:id="@+id/ArrivalPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Arrival Place"
+                app:layout_constraintBottom_toBottomOf="@+id/DurationOfTravel"
+                app:layout_constraintEnd_toEndOf="@+id/ArrivalTime"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/ArrivalTime"
+                app:layout_constraintTop_toBottomOf="@+id/ArrivalTime"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+
+
+
+</androidx.cardview.widget.CardView>
