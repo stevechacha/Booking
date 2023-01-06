@@ -3,8 +3,10 @@ package com.chacha.booking.feature_bookings.presentation.fragment.returns.presen
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.chacha.booking.R
@@ -15,9 +17,14 @@ import com.chacha.booking.feature_bookings.presentation.bottom_sheet.departure.D
 import com.chacha.booking.feature_bookings.presentation.bottom_sheet.destinations.DestinationBottomSheet
 import com.chacha.booking.feature_bookings.presentation.bottom_sheet.passengers.PassengersBottomSheet
 import com.chacha.booking.feature_bookings.presentation.bottom_sheet.vehecle_type.VehicleTypeFragment
+import com.chacha.booking.feature_search_results.presentation.fragment.search_results.ResultSearchFragment
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 @AndroidEntryPoint
 class ReturnsFragment : Fragment(R.layout.returns_fragment) {
@@ -30,20 +37,85 @@ class ReturnsFragment : Fragment(R.layout.returns_fragment) {
 
 
 
+
+
+
+
         setUpObservers()
         currentDate()
         returnDate()
+
         destinationStation()
         departureStation()
         passengerBottomSheetDialog()
         vehicleTypeBottomSheetDialog()
+        
+        datePickerRange()
 
 /*
         showBottomSheet()
 */
 //        dateDialog()
 
+        navigateToResultSearch()
 
+
+    }
+
+    private fun navigateToResultSearch() {
+        binding.apply {
+            searchBtn.setOnClickListener {
+              // viewModel.navigateToSearchResult()
+                findNavController().navigate(R.id.bookingFragmentToResultSearchFragment)
+            }
+        }
+    }
+
+    private fun datePickerRange() {
+        val constraintsBuilder =
+            CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now())
+
+        binding.textViewDepartureDate.setOnClickListener { 
+            val datePicker= MaterialDatePicker.Builder.dateRangePicker()
+                .setCalendarConstraints(constraintsBuilder.build())
+                .build()
+            datePicker.show(parentFragmentManager,datePicker.tag.toString())
+            
+            datePicker.addOnPositiveButtonClickListener { 
+                val departureDate = changeDateFormat(it.first)
+                val returnDate = changeDateFormat(it.second)
+                
+                binding.textViewDepartureDate.text = departureDate
+                binding.textViewReturnDate.text = returnDate
+            }
+        }
+
+        binding.textViewReturnDate.setOnClickListener {
+            val datePicker= MaterialDatePicker.Builder.dateRangePicker()
+                .setCalendarConstraints(constraintsBuilder.build()).build()
+            datePicker.show(parentFragmentManager,datePicker.tag.toString())
+
+            datePicker.addOnPositiveButtonClickListener {
+                val departureDate = changeDateFormat(it.first)
+                val returnDate = changeDateFormat(it.second)
+
+                binding.textViewDepartureDate.text = departureDate
+                binding.textViewReturnDate.text = returnDate
+            }
+
+        }
+
+    }
+    @SuppressLint("SimpleDateFormat")
+    fun changeDateFormat(long: Long?): String{
+        return try {
+            val dateFormat = SimpleDateFormat("dd MMM yyyy")
+            dateFormat.format(long)
+
+        } catch (e:Exception){
+            return ""
+        }
     }
 
     private fun departureStation() {
@@ -110,9 +182,9 @@ class ReturnsFragment : Fragment(R.layout.returns_fragment) {
         val dateAfter3Days = binding.textViewReturnDate
         val date3 = getDateThreeDaysAhead()
         dateAfter3Days.text = date3
-        binding.textViewReturnDate.setOnClickListener {
+        /*binding.textViewReturnDate.setOnClickListener {
             showDatePickerDialog()
-        }
+        }*/
 
     }
 
@@ -123,9 +195,9 @@ class ReturnsFragment : Fragment(R.layout.returns_fragment) {
         val currentDate = getCurrentDateInEnglish()
         datePicker.text = currentDate
         // Set the date range and selection mode
-        binding.textViewDepartureDate.setOnClickListener {
-            showDatePickerDialog()
-        }
+        /*binding.textViewDepartureDate.setOnClickListener {
+//            showDatePickerDialog()
+        }*/
 
 
     }

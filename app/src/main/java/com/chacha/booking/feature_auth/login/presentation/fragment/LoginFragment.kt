@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,37 +30,56 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
 
 
         setUpObservers()
         /* navigateToRegister()
          loginUser()*/
 //        validateUser()
-//        navigateToBook()
+        navigateToBook()
+        navigateToSignUp()
 
-        validateUser()
+//        validateUser()
 
 
     }
 
-    private fun validateUser() {
-        binding.confirmBtm.setOnClickListener {
-            val email = binding.emailUser.text.toString().trim()
-            val password = binding.passWordUser.text.toString().trim()
-            viewModel.signIn(
-                email, password
-            )
+    private fun navigateToSignUp() {
+        binding.apply {
+            signUpTextView.setOnClickListener {
+                viewModel.navigateToRegister()
+            }
         }
-
     }
 
+    private fun navigateToForgotPassword(){
+        binding.apply {
+            forgotPassword.setOnClickListener {
+                viewModel.navigateToForgotPassword()
+            }
+        }
+    }
 
-  /*  private fun navigateToBook() {
+    /*   private fun validateUser() {
+           binding.confirmBtm.setOnClickListener {
+               val email = binding.emailUser.text.toString().trim()
+               val password = binding.passWordUser.text.toString().trim()
+               viewModel.signIn(
+                   email, password
+               )
+           }
+
+       }*/
+
+
+    private fun navigateToBook() {
         binding.confirmBtm.setOnClickListener {
             viewModel.navigateToBook()
         }
 
-    }*/
+    }
 
 
     private fun setUpObservers() {

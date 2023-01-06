@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
+@HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ) : ViewModel() {
@@ -47,6 +48,14 @@ class SignUpViewModel @Inject constructor(
         val toHome = SignUpFragmentDirections.signUpFragmentToBookingFragment()
         val action = SignUpActions.Navigate(toHome)
         _interactions.postValue(action.asEvent())
+    }
+
+    fun navigateToLogin() {
+        _interactions.postValue(
+            SignUpActions.Navigate(
+                SignUpFragmentDirections.signUpFragmentToLoginFragment()
+            ).asEvent()
+        )
     }
 
 

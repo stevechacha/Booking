@@ -26,11 +26,24 @@ class SignUpFragment : Fragment(R.layout.sign_up_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpObservers()
-        validateUser()
+
+        navigateToLogin()
+
+        navigateToHome()
 
     }
 
-    private fun validateUser() {
+    private fun navigateToHome(){
+        binding.apply {
+            viewModel.navigateToHome()
+        }
+
+    }
+
+
+
+
+   /* private fun validateUser() {
         val email = binding.emailEditText.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
         val name = binding.nameTextFieldEditText.text.toString().trim()
@@ -38,6 +51,15 @@ class SignUpFragment : Fragment(R.layout.sign_up_fragment) {
             viewModel.signUp(
                 email,password, name
             )
+        }
+
+    }*/
+
+    private fun navigateToLogin(){
+        binding.apply {
+            loginTextView.setOnClickListener {
+                viewModel.navigateToLogin()
+            }
         }
 
     }
@@ -72,7 +94,7 @@ class SignUpFragment : Fragment(R.layout.sign_up_fragment) {
     private fun onRegisterFinished() {
         val sharedPref = requireActivity().getSharedPreferences("Register", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putBoolean("Finished", true)
+        editor.putBoolean("Finished", false)
         editor.apply()
 
     }

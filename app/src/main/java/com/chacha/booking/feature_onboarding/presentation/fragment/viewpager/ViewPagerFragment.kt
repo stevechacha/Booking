@@ -57,24 +57,6 @@ class ViewPagerFragment : Fragment(R.layout.view_pager_fragment) {
         )
         binding.viewPager2.adapter = adapter
 
-
-        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
-            print(tab.position)
-
-            if (position == fragmentList.size-1){
-                binding.tabLayout.visibility = VISIBLE
-                Toast.makeText(requireContext(),"$position",Toast.LENGTH_SHORT).show()
-
-            } else {
-                binding.tabLayout.visibility = INVISIBLE
-                Timber.e("SIZE: ${fragmentList.size} POS: $position")
-
-            }
-
-           /* binding.tabLayout.visibility = if (position == fragmentList.size+1)
-                INVISIBLE else VISIBLE*/
-
-
-        }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position -> }.attach()
     }
 }

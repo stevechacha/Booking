@@ -1,18 +1,27 @@
 package com.chacha.booking.feature_auth.welcome
 
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.WindowCompat
+import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.chacha.booking.R
 import com.chacha.booking.core.utils.observeEvent
 import com.chacha.booking.core.utils.viewBinding
 import com.chacha.booking.databinding.WelcomeFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WelcomeFragment : Fragment(R.layout.welcome_fragment) {
@@ -23,12 +32,16 @@ class WelcomeFragment : Fragment(R.layout.welcome_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
         setUpObservers()
         onClick()
 
 
 
     }
+
+
 
     private fun onClick(){
         binding.apply {

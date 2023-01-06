@@ -2,12 +2,12 @@ package com.chacha.booking.feature_bookings.presentation.fragment.one_way.presen
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import androidx.lifecycle.ViewModelProvider
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.chacha.booking.R
@@ -20,6 +20,7 @@ import com.chacha.booking.feature_bookings.presentation.bottom_sheet.passengers.
 import com.chacha.booking.feature_bookings.presentation.bottom_sheet.vehecle_type.VehicleTypeFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +30,7 @@ class OneWayFragment : Fragment(R.layout.one_way_fragment) {
     private val binding by viewBinding(OneWayFragmentBinding::bind)
     private val viewModel: OneWayViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,28 +38,77 @@ class OneWayFragment : Fragment(R.layout.one_way_fragment) {
 
         setUpObservers()
 
-        setDepatureDate()
+        selectNumberOfPassenger()
 
-        passengerBottomSheetDialog()
+        selectVehicle()
 
-        showVehicle()
-        departureStation()
-        destinationStation()
+        selectDepartureStation()
 
-//        oneWayDateBottomSheetDialog()
+        selectDestinationStation()
+
+        selectDepartureDate()
+
+        searchDate()
 
 
     }
 
-    private fun departureStation() {
+    private fun searchDate() {
+        // when floationg acition button is clicked
+        binding.textViewDepartureDate.setOnClickListener {
+            // Initiation date picker with
+            // MaterialDatePicker.Builder.datePicker()
+            // and building it using build()
+            val datePicker = MaterialDatePicker.Builder.datePicker().build()
+            datePicker.show(parentFragmentManager, "DatePicker")
+
+            // Setting up the event for when ok is clicked
+            datePicker.addOnPositiveButtonClickListener {
+                // formatting date in dd-mm-yyyy format.
+                val dateFormatter = SimpleDateFormat("dd-MM-yyyy")
+                val date = dateFormatter.format(Date(it)).toString()
+                Toast.makeText(requireContext(), "$date is selected", Toast.LENGTH_LONG).show()
+
+                binding.textViewDepartureDate.text = date
+
+            }
+
+            // Setting up the event for when cancelled is clicked
+            datePicker.addOnNegativeButtonClickListener {
+                Toast.makeText(
+                    requireContext(),
+                    "${datePicker.headerText} is cancelled",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            // Setting up the event for when back button is pressed
+            datePicker.addOnCancelListener {
+                Toast.makeText(requireContext(), "Date Picker Cancelled", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun selectDepartureDate() {
+        // Returning The Current Date
+        val datePicker = binding.textViewDepartureDate
+        val currentDate = getCurrentDateInEnglish()
+        datePicker.text = currentDate
+
+        /*binding.textViewDepartureDate.setOnClickListener {
+            showDatePickerDialog()
+        }*/
+    }
+
+    private fun selectDepartureStation() {
         binding.fromDestination.setOnClickListener {
-            val dapartureDialog = DepartureBottomSheet()
-            dapartureDialog.show(parentFragmentManager, dapartureDialog.tag)
+            val selectDepartureStation = DepartureBottomSheet()
+            selectDepartureStation.show(parentFragmentManager, selectDepartureStation.tag)
         }
 
     }
 
-    private fun destinationStation() {
+    private fun selectDestinationStation() {
         binding.toDestination.setOnClickListener {
             val destinationDialog = DestinationBottomSheet()
             destinationDialog.show(parentFragmentManager, destinationDialog.tag)
@@ -65,7 +116,7 @@ class OneWayFragment : Fragment(R.layout.one_way_fragment) {
         }
     }
 
-    private fun showVehicle() {
+    private fun selectVehicle() {
 
         binding.textVehicleType.setOnClickListener {
             val vehicleBottomSheetFragment = VehicleTypeFragment()
@@ -75,27 +126,7 @@ class OneWayFragment : Fragment(R.layout.one_way_fragment) {
 
     }
 
-    /* @SuppressLint("SimpleDateFormat")
-     private fun oneWayDateBottomSheetDialog() {
-         binding.apply {
-             textViewDepartureDate.setOnClickListener {
-                 val datePicker =
-                     MaterialDatePicker.Builder.dateRangePicker()
-                         .setTitleText("Select date")
-                         .build()
-
-                val bottomDialog= datePicker.show(parentFragmentManager, datePicker.toString())
-                 // Get the selected date
-
-
-                 textViewDepartureDate.text = bottomDialog.toString()
-
-             }
-         }
-     }*/
-
-
-    private fun passengerBottomSheetDialog() {
+    private fun selectNumberOfPassenger() {
         binding.passenger.setOnClickListener {
             val passengerBottomSheetFragment = PassengersBottomSheet()
             passengerBottomSheetFragment.show(
@@ -108,19 +139,9 @@ class OneWayFragment : Fragment(R.layout.one_way_fragment) {
 
 
     @SuppressLint("SimpleDateFormat")
-    private fun setDepatureDate() {
-        val datePicker = binding.textViewDepartureDate
-        val currentDate = getCurrentDateInEnglish()
-        datePicker.text = currentDate
-        binding.textViewDepartureDate.setOnClickListener {
-            showDatePickerDialog()
-        }
-
-
-    }
-
-    @SuppressLint("SimpleDateFormat")
     private fun showDatePickerDialog() {
+
+        // Picking Date For Departure
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -206,4 +227,15 @@ fun getDateThreeDaysAhead(): String {
     calendar.add(Calendar.DATE, 3)
     val dateFormat = SimpleDateFormat("dd MMM yyyy")
     return dateFormat.format(calendar.time)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun changeDateFormat(toString: String): String {
+    return try {
+        val dateFormat = SimpleDateFormat("dd MMM yyyy")
+        dateFormat.format(Date())
+
+    } catch (e: Exception) {
+        return ""
+    }
 }

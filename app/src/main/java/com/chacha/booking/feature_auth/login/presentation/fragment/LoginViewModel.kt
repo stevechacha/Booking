@@ -61,7 +61,7 @@ class LoginViewModel @Inject constructor(
                     ).asEvent()
                 )
             } else {
-                _uiState.postValue(LoginUIState.Error(message = "message"))
+                _uiState.postValue(LoginUIState.Error(message = "Error Message"))
             }
 
         }
@@ -113,19 +113,27 @@ class LoginViewModel @Inject constructor(
     fun navigateToRegister() {
         _interactions.postValue(
             LoginActions.Navigate(
-                LoginFragmentDirections.loginFragmentToBookingFragment()
+                LoginFragmentDirections.loginFragmentToSignUpFragment()
             ).asEvent()
         )
-        val toRegister = LoginFragmentDirections.loginFragmentToBookingFragment()
-        val action = LoginActions.Navigate(toRegister)
-        _interactions.postValue(action.asEvent())
     }
 
 
     fun navigateToBook() {
-        val toRegister = LoginFragmentDirections.loginFragmentToBookingFragment()
-        val action = LoginActions.Navigate(toRegister)
-        _interactions.postValue(action.asEvent())
+       _interactions.postValue(
+           LoginActions.Navigate(
+               LoginFragmentDirections.loginFragmentToBookingFragment()
+           ).asEvent()
+       )
+
+    }
+
+    fun navigateToForgotPassword() {
+        _interactions.postValue(
+            LoginActions.Navigate(
+                LoginFragmentDirections.loginFragmentToForgotPasswordFragment()
+            ).asEvent()
+        )
 
     }
 }
