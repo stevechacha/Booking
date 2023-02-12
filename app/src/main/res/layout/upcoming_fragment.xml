@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_trips.upcoming.presentation.fragment.UpcomingFragment">
+    tools:context=".upcoming_trips.UpcomingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/upcomingRecyclerView"

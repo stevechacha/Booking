@@ -1,8 +1,8 @@
 package com.chacha.booking.di
 
 
-import com.chacha.booking.core.data.remote.api.BookingApi
-import com.chacha.booking.core.utils.Constants.BASE_URL
+import com.chacha.booking.data.remote.api.BookingApi
+import com.chacha.booking.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

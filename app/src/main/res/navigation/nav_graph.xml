@@ -3,18 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/bookingFragment">
     <fragment
-        android:id="@+id/onBoardingFragment"
-        android:name="com.chacha.booking.feature_onboarding.presentation.fragment.onboarding.OnBoardingFragment"
-        android:label="OnBoardingFragment" >
+        android:id="@+id/splashFragment"
+        android:name="com.chacha.booking.onboarding.SplashFragment"
+        android:label="splash_fragment"
+        tools:layout="@layout/splash_fragment" >
         <action
-            android:id="@+id/onBoardingFragmentToWelcomeFragment"
+            android:id="@+id/splashFragmentToViewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
+        <action
+            android:id="@+id/splashFragmentToBookingFragment"
+            app:destination="@id/bookingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.chacha.booking.onboarding.ViewPagerFragment"
+        android:label="view_pager_fragment"
+        tools:layout="@layout/view_pager_fragment" >
+        <action
+            android:id="@+id/viewPagerFragmentToWelcomeFragment"
             app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.chacha.booking.feature_auth.welcome.WelcomeFragment"
+        android:name="com.chacha.booking.welcome.WelcomeFragment"
         android:label="welcome_fragment"
         tools:layout="@layout/welcome_fragment" >
         <action
@@ -26,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.chacha.booking.feature_auth.signup.presentation.fragment.SignUpFragment"
+        android:name="com.chacha.booking.signup.SignUpFragment"
         android:label="sign_up_fragment"
         tools:layout="@layout/sign_up_fragment" >
         <action
@@ -38,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.chacha.booking.feature_auth.login.presentation.fragment.LoginFragment"
+        android:name="com.chacha.booking.login.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment" >
         <action
@@ -47,22 +60,34 @@
         <action
             android:id="@+id/loginFragmentToSignUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/loginFragmentToForgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookingFragment"
-        android:name="com.chacha.booking.feature_bookings.presentation.fragment.booking.BookingFragment"
+        android:name="com.chacha.booking.bookings.fragment.booking.BookingFragment"
         android:label="booking_fragment"
         tools:layout="@layout/booking_fragment">
         <argument
             android:name="hasBottomNav"
             android:defaultValue="true"
             app:argType="boolean" />
+        <action
+            android:id="@+id/bookingFragmentToReturnsFragment"
+            app:destination="@id/returnsFragment" />
+        <action
+            android:id="@+id/action_bookingFragment_to_oneWayFragment"
+            app:destination="@id/oneWayFragment" />
+        <action
+            android:id="@+id/bookingFragmentToResultSearchFragment"
+            app:destination="@id/resultSearchFragment" />
 
 
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.chacha.booking.feature_profile.presentation.fragment.ProfileFragment"
+        android:name="com.chacha.booking.profile.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment">
         <argument
@@ -73,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/parcelFragment"
-        android:name="com.chacha.booking.feature_percel.presentation.fragment.ParcelFragment"
+        android:name="com.chacha.booking.parcel.ParcelFragment"
         android:label="parcel_fragment"
         tools:layout="@layout/parcel_fragment">
         <argument
@@ -84,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/tripsFragment"
-        android:name="com.chacha.booking.feature_trips.mytrips.fragment.TripsFragment"
+        android:name="com.chacha.booking.mytrips.TripsFragment"
         android:label="trips_fragment"
         tools:layout="@layout/trips_fragment">
         <argument
@@ -93,4 +118,34 @@
             app:argType="boolean" />
 
     </fragment>
+    <fragment
+        android:id="@+id/resultSearchFragment"
+        android:name="com.chacha.booking.search_results.search_results.ResultSearchFragment"
+        android:label="result_search_fragment"
+        tools:layout="@layout/result_search_fragment" />
+    <fragment
+        android:id="@+id/returnsFragment"
+        android:name="com.chacha.booking.bookings.fragment.returns.ReturnsFragment"
+        android:label="returns_fragment"
+        tools:layout="@layout/returns_fragment" >
+        <action
+            android:id="@+id/returnsFragmentToResultSearchFragment"
+            app:destination="@id/resultSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/oneWayFragment"
+        android:name="com.chacha.booking.bookings.fragment.one_way.OneWayFragment"
+        android:label="one_way_fragment"
+        tools:layout="@layout/one_way_fragment" >
+        <action
+            android:id="@+id/oneWayFragmentToResultSearchFragment"
+            app:destination="@id/resultSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.chacha.booking.forgot_password.ForgotPasswordFragment"
+        android:label="forgot_password_fragment"
+        tools:layout="@layout/forgot_password_fragment" />
+
+
 </navigation>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_bookings.presentation.fragment.returns.presentation.fragment.ReturnsFragment">
+    tools:context=".bookings.presentation.fragment.returns.presentation.fragment.ReturnsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp">
@@ -26,6 +26,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:padding="16dp">
 
 
@@ -33,7 +34,7 @@
                     android:id="@+id/fromTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_light"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="@string/from"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -70,10 +71,9 @@
 
                 <ImageView
                     android:id="@+id/textViewBeerType"
-                    android:layout_width="30sp"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="5dp"
-                    android:contentDescription="@string/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/email"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_interchange"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -111,13 +111,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="26dp"
             app:cardCornerRadius="16dp">
 
 
@@ -130,7 +130,6 @@
                     android:id="@+id/textViewDepatureName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:text="@string/departure"
                     android:textSize="@dimen/passenger_text"
@@ -155,7 +154,6 @@
                     android:id="@+id/textViewReturn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:text="@string/returns"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -167,7 +165,7 @@
                     android:id="@+id/textViewReturnDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:text="@string/return_date"
                     android:textSize="@dimen/passenger_text"
@@ -189,7 +187,7 @@
                     android:id="@+id/numberOfPassenger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:text="@string/_1_passenger"
                     android:textSize="@dimen/passenger_text"
@@ -204,7 +202,7 @@
                     android:id="@+id/textVehicleType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:text="@string/bus"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -218,14 +216,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
 
         <Button
             android:id="@+id/searchBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="28dp"
             android:fontFamily="@font/poppins_regular"
             android:padding="10dp"
             android:text="@string/search"

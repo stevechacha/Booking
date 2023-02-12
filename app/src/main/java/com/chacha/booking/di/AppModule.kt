@@ -1,14 +1,14 @@
 package com.chacha.booking.di
 
-import com.chacha.booking.core.data.local.BookingsDatabase
-import com.chacha.booking.feature_auth.login.data.repository.LoginRepositoryImpl
-import com.chacha.booking.feature_auth.login.domain.repository.LoginRepository
-import com.chacha.booking.feature_auth.signup.data.repository.SignUpRepositoryImpl
-import com.chacha.booking.feature_auth.signup.domain.repository.SignUpRepository
-import com.chacha.booking.feature_bookings.data.repository.DepartureStationRepositoryImpl
-import com.chacha.booking.feature_bookings.data.repository.DestinationStationRepositoryImpl
-import com.chacha.booking.feature_bookings.domain.repository.DepartureStationRepository
-import com.chacha.booking.feature_bookings.domain.repository.DestinationStationRepository
+import com.chacha.booking.database.BookingsDatabase
+import com.chacha.booking.data.repository.LoginRepositoryImpl
+import com.chacha.booking.domain.repository.LoginRepository
+import com.chacha.booking.data.repository.SignUpRepositoryImpl
+import com.chacha.booking.domain.repository.SignUpRepository
+import com.chacha.booking.data.repository.DepartureStationRepositoryImpl
+import com.chacha.booking.data.repository.DestinationStationRepositoryImpl
+import com.chacha.booking.domain.repository.DepartureStationRepository
+import com.chacha.booking.domain.repository.DestinationStationRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -47,7 +47,7 @@ object AppModule {
     @Singleton
     fun provideLoginRepository(
         firebaseAuth: FirebaseAuth
-    ): LoginRepository{
+    ): LoginRepository {
         return LoginRepositoryImpl(
             firebaseAuth
         )

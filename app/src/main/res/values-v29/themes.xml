@@ -2,10 +2,10 @@
 
     <style name="Theme.Booking" parent="Base.Theme.Booking">
         <!-- Transparent system bars for edge-to-edge. -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+<!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+
 
     </style>
     <!--Bottom Navigation-->

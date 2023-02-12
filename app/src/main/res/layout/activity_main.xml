@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".core.presentation.activity.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navHostFragment"
@@ -27,9 +27,9 @@
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
         android:layout_height="wrap_content"
+        style="@style/Widget.App.BottomNavigationView"
+        android:theme="@style/BottomNavigationViewTextStyle"
         android:layout_gravity="bottom"
-        app:itemTextAppearanceActive="@style/Widget.App.BottomNavigationView"
-        app:itemTextAppearanceInactive="@style/Widget.App.BottomNavigationView"
         app:menu="@menu/bottom_app_bar"
         app:itemTextColor="@drawable/bottom_navigation_colors"
         app:labelVisibilityMode="labeled"

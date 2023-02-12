@@ -1,7 +1,7 @@
 package com.chacha.booking.di
 
-import com.chacha.booking.core.data.local.BookingsDatabase
-import com.chacha.booking.feature_bookings.data.local.DestinationsDao
+import com.chacha.booking.database.BookingsDatabase
+import com.chacha.booking.data.local.dao.DestinationsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -2,7 +2,7 @@ package com.chacha.booking.di
 
 import android.app.Application
 import androidx.room.Room
-import com.chacha.booking.core.data.local.BookingsDatabase
+import com.chacha.booking.database.BookingsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

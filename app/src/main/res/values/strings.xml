@@ -66,7 +66,7 @@
     <string name="from">From</string>
     <string name="select_departure">Select Departure</string>
     <string name="to">To</string>
-    <string name="select_destination">Select destination</string>
+    <string name="select_destination">Select Destination</string>
     <string name="search">Search</string>
     <string name="let_s_start_your_journey">Let\'s Start your journey</string>
     <string name="forgot_password">Forgot password?</string>
@@ -115,4 +115,12 @@
     <string name="about_us">About Us</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="customer_service">Customer Service</string>
+    <string name="forgot_password_header">Enter your Email or Number to reset your Password</string>
+    <string name="date_one">Date One</string>
+    <string name="date_two">Date Two</string>
+    <string name="skip">Skip</string>
+    <string name="onboarding">onboarding</string>
+    <string name="get_started">Get Started</string>
+    <string name="finish">Finish</string>
+    <string name="multi_city">Multi-City</string>
 </resources>
