@@ -22,6 +22,7 @@ import com.chacha.presentation.bottomnav.BottomNavigationBar
 import com.chacha.presentation.common.navigation.RootNavGraph
 import com.chacha.presentation.common.navigation.HomeNavGraph
 import com.chacha.presentation.common.theme.BookingTheme
+import com.chacha.presentation.date_picker.DatePickerScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +38,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    RootNavGraph(navController = navController)
+                    DatePickerScreen()
+//                    RootNavGraph(navController = navController)
 
                 }
             }

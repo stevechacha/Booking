@@ -43,7 +43,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
             LoginScreen(
                 onClick = {
                     navController.popBackStack()
-                    navController.navigate(AuthScreen.PinLock.route)
+                    navController.navigate(Graph.HOME)
                 },
                 onSignUpClick = {
                     navController.navigate(AuthScreen.Register.route)

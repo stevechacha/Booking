@@ -1,9 +1,7 @@
 package com.chacha.presentation.auth.login
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
@@ -108,113 +106,120 @@ fun LoginContent(
             val text by rememberSaveable { mutableStateOf("") }
             val charLimit = 10
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column {
-                    AppOutlinedTextField(
-                        value = usernameState.text,
-                        onValueChange = {
-                            viewModel.setUsername(it)
-                        },
-                        keyboardType = KeyboardType.Email,
-                        hint = stringResource(id = R.string.email_or_mobile_number),
-                        trailingIcon = {
-                            IconButton(onClick = { expanded = true }) {
-                                Icons.Filled.Home
-                            }
-                        },
-                        supportingText = {
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = "Limit: ${usernameState.text.length}/$charLimit",
-                                textAlign = TextAlign.End,
-                            )
-                        }
-                    )
-
-
-                    if (usernameState.error != "") {
-                        Text(
-                            text = usernameState.error,
-                            color = Color.Red,
-                            fontSize = 12.sp,
-                            modifier = Modifier.padding(top = 4.dp)
-                        )
+            AppOutlinedTextField(
+                value = usernameState.text,
+                onValueChange = {
+                    viewModel.setUsername(it)
+                },
+                keyboardType = KeyboardType.Email,
+                hint = stringResource(id = R.string.email_or_mobile_number),
+                trailingIcon = {
+                    IconButton(onClick = { expanded = true }) {
+                        Icons.Filled.Home
                     }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    AppOutlinedTextField(
-                        value = passwordState.text,
-                        onValueChange = { viewModel.setPassword(it) },
-                        keyboardType = KeyboardType.Password,
-                        hint = stringResource(id = R.string.password),
-                        isPasswordVisible = viewModel.showPassword.value,
-                        onPasswordToggleClick = {
-                            viewModel.setShowPassword(it)
-                        },
-                        leadingIcon = Icons.Default.Home
-
-                    )
-                    if (passwordState.error != "") {
-                        Text(
-                            text = passwordState.error,
-                            color = Color.Red,
-                            fontSize = 12.sp,
-                            modifier = Modifier.padding(top = 4.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-
+                },
+                supportingText = {
                     Text(
-                        modifier = Modifier.clickable { onForgotClick() },
-                        text = "Forgot Password?",
-                        fontWeight = FontWeight.Medium,
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "Limit: ${usernameState.text.length}/$charLimit",
                         textAlign = TextAlign.End,
                     )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        OutlinedButton(
-                            onClick = { onSignUpClick() },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.outlinedButtonColors(),
-                            shape = RoundedCornerShape(8),
-                            border = BorderStroke(1.dp, PrimaryColor)
-                        ) {
-                            Text(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp),
-                                textAlign = TextAlign.Center,
-                                text = "Register",
-                                fontSize = 14.sp
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        ContinueButton(
-                            text = stringResource(id = R.string.submit),
-                            onClick = onClick
-                        )
-                        Spacer(modifier = Modifier.height(30.dp))
-
-                    }
-
                 }
+            )
 
+
+            if (usernameState.error != "") {
+                Text(
+                    text = usernameState.error,
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            AppOutlinedTextField(
+                value = passwordState.text,
+                onValueChange = { viewModel.setPassword(it) },
+                keyboardType = KeyboardType.Password,
+                hint = stringResource(id = R.string.password),
+                isPasswordVisible = viewModel.showPassword.value,
+                onPasswordToggleClick = {
+                    viewModel.setShowPassword(it)
+                },
+            )
+            if (passwordState.error != "") {
+                Text(
+                    text = passwordState.error,
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onForgotClick() },
+                text = "Forgot Password?",
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.End,
+                fontSize = 14.sp
+            )
+
+            Spacer(modifier = Modifier.height(30.dp))
+            ContinueButton(
+                text = stringResource(id = R.string.submit),
+                onClick = onClick
+            )
+            Spacer(modifier = Modifier.height(50.dp))
+
+            SignUp(
+                onSignUpClick = onSignUpClick
+            )
         }
+
+
+    }
+
+}
+
+@Composable
+fun SignUp(
+    onSignUpClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Divider(
+            modifier = Modifier.width(80.dp)
+        )
+        Text(
+            text = "Don't have an account?",
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 5.dp)
+        )
+        Text(
+            text = "SignUp",
+            fontSize = 14.sp,
+            modifier = Modifier
+                .padding(start = 2.dp)
+                .clickable(onClick = onSignUpClick),
+            color = PrimaryColor
+
+        )
+        Divider(
+            modifier = Modifier
+                .width(80.dp)
+                .padding(start = 5.dp),
+
+            )
 
     }
 

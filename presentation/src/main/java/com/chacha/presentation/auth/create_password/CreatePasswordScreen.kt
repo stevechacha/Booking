@@ -77,17 +77,11 @@ fun CreatePasswordContent(
                     viewModel.setShowConfirmPassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(20.dp))
-            Column(
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                ContinueButton(
-                    text = stringResource(id = R.string.submit),
-                    onClick = onClickAction
-                )
-
-            }
+            Spacer(modifier = Modifier.height(30.dp))
+            ContinueButton(
+                text = stringResource(id = R.string.submit),
+                onClick = onClickAction
+            )
         }
     }
 }

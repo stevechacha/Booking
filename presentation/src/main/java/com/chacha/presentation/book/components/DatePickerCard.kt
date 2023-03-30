@@ -42,7 +42,8 @@ fun DatePickerCard(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .height(300.dp),
         border = BorderStroke(1.dp, Border),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
@@ -60,7 +61,7 @@ fun DatePickerCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(start=16.dp,end=16.dp,top= 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -97,7 +98,7 @@ fun DatePickerCard(
                 }
 
             }
-            Spacer(modifier = Modifier.size(16.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Divider(
                 thickness = 1.dp,
                 color = MaterialTheme.colorScheme.onBackground,

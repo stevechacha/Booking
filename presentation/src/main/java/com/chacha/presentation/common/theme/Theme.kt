@@ -74,7 +74,7 @@ fun BookingTheme(
 
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = if(darkTheme) BackgroundDarkColor else PrimaryColor
+            color = if(darkTheme) BackgroundDarkColor else BackgroundLightColor
         )
         systemUiController.setNavigationBarColor(
             color = if (darkTheme) BackgroundDarkColor else  BackgroundLightColor
@@ -85,6 +85,7 @@ fun BookingTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = AppTypography,
+        shapes = rideShapes,
         content = content
     )
 }

@@ -52,33 +52,19 @@ fun ForgotPasswordContent(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column {
-                    AppOutlinedTextField(
-                        value = email,
-                        onValueChange = { setEmail(it) },
-                        hint = stringResource(id = R.string.email_hint),
-                        keyboardType = KeyboardType.Email
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
 
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        ContinueButton(
-                            text = stringResource(id = R.string.submit),
-                            onClick = onClick
-                        )
-                        Spacer(modifier = Modifier.height(30.dp))
-                    }
-                }
-            }
+            AppOutlinedTextField(
+                value = email,
+                onValueChange = { setEmail(it) },
+                hint = stringResource(id = R.string.email_hint),
+                keyboardType = KeyboardType.Email
+            )
+            Spacer(modifier = Modifier.height(30.dp))
+            ContinueButton(
+                text = stringResource(id = R.string.submit),
+                onClick = onClick
+            )
+
 
         }
     }

@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.chacha.presentation.R
+import com.chacha.presentation.date_picker.DatePickerScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -75,6 +76,10 @@ fun TransactionCard(
     onDepositClicked: () -> Unit,
 
     ) {
+    
+    Button(onClick = { }) {
+        
+    }
 
 
 }
