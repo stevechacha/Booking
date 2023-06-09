@@ -11,13 +11,15 @@ import com.chacha.presentation.auth.forgot.ForgotPasswordScreen
 import com.chacha.presentation.auth.login.LoginScreen
 import com.chacha.presentation.auth.register.RegisterScreen
 import com.chacha.presentation.auth.welcome.WelcomeScreen
+import com.chacha.presentation.common.navigation.GraphDestinations.AUTHENTICATION
+import com.chacha.presentation.common.navigation.GraphDestinations.HOME_ROUTE
 import com.chacha.presentation.onboard.OnBoardScreen
 
 
 @RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.AUTHENTICATION,
+        route = AUTHENTICATION,
         startDestination = AuthScreen.Onboard.route
     ) {
         composable(AuthScreen.Onboard.route) {
@@ -43,7 +45,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
             LoginScreen(
                 onClick = {
                     navController.popBackStack()
-                    navController.navigate(Graph.HOME)
+                    navController.navigate(HOME_ROUTE)
                 },
                 onSignUpClick = {
                     navController.navigate(AuthScreen.Register.route)
@@ -69,7 +71,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
             CreatePasswordScreen(
                 onClickAction = {
                     navController.popBackStack()
-                    navController.navigate(Graph.HOME)
+                    navController.navigate(HOME_ROUTE)
                 }
             )
         }
@@ -77,7 +79,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
             ForgotPasswordScreen(
                 onClick = {
                     navController.popBackStack()
-                    navController.navigate(Graph.HOME)
+                    navController.navigate(HOME_ROUTE)
                 },
                 onLoginClick = {
                     navController.navigate(AuthScreen.Login.route)
@@ -89,13 +91,10 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
 
 
 sealed class AuthScreen(val route: String) {
-
     object Onboard : AuthScreen("onboard_route")
     object Welcome : AuthScreen("welcome")
     object Login : AuthScreen(route = "LOGIN")
-
     object PinLock : AuthScreen("PinLock")
-
     object Register : AuthScreen(route = "REGISTER")
     object Forgot : AuthScreen(route = "FORGOT")
     object CreatePassword : AuthScreen(route = "CREATE_ACCOUNT")

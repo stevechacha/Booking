@@ -71,8 +71,6 @@ fun MultiCityCard(
                 text = flightNumber,
                 fontSize = 16.sp,
                 overflow = TextOverflow.Ellipsis
-
-
             )
             Spacer(modifier = Modifier.weight(1f))
             Column(

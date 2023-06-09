@@ -1,35 +1,54 @@
 package com.chacha.presentation.pooking
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import java.nio.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class PookingViewModel : ViewModel() {
 
-    private val _pookingState = mutableStateOf(PookingState.Loading)
-    val pookingState: State<PookingState> = _pookingState
-
-    private val _interactions = MutableLiveData<BottomSheetAction>()
-    val interactions: LiveData<BottomSheetAction> = _interactions
+    private val _pookingState = MutableStateFlow(PookingState() )
+    val pookingState: MutableStateFlow<PookingState> = _pookingState
 
 
-    fun onEvent(event: BottomSheetAction){
+    fun onEvent(event: PookingEvent){
         when(event){
-            is BottomSheetAction.From -> {
+            is PookingEvent.From -> {
 
             }
-            is BottomSheetAction.To -> {
+            is PookingEvent.To -> {
+               _pookingState.value = pookingState.value.copy(
+                   to = event.to
+               )
             }
-            is BottomSheetAction.DepartureDate -> {
+            is PookingEvent.DepartureDate -> {
+                _pookingState.value = pookingState.value.copy(
+                    departureDate = event.departureDate
+                )
             }
-            is BottomSheetAction.Passenger -> {
+            is PookingEvent.Passenger -> {
+                _pookingState.value = pookingState.value.copy(
+                    passenger = event.passenger
+                )
             }
-            is BottomSheetAction.ReturnDate -> {
+            is PookingEvent.ReturnDate -> {
+                _pookingState.value = pookingState.value.copy(
+                    returnDate = event.returnDate
+                )
             }
-            is BottomSheetAction.VehicleType -> {
+            is PookingEvent.VehicleType -> {
+                _pookingState.value = pookingState.value.copy(
+                    vehicleTypes = event.vehicleType
+                )
+
+            }
+            is PookingEvent.OnSearchQuery -> {
+                _pookingState.value = pookingState.value.copy(
+                    from = event.query
+                )
+
 
             }
 
@@ -38,16 +57,5 @@ class PookingViewModel : ViewModel() {
     }
 
 
-
-
-
 }
 
-sealed interface PookingEvent {
-    object GetPooking : PookingEvent
-}
-
-sealed class PookingState {
-    object Loading : PookingState()
-    data class Error(val error: String) : PookingState()
-}

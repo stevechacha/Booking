@@ -55,6 +55,7 @@ fun SeatLayout(seatList: List<Seat>) {
                         Box(
                             modifier = Modifier
                                 .size(50.dp)
+                                .padding(start = 5.dp, top = 5.dp, bottom = 5.dp)
                                 .background(if (seat.isBooked) Color.Gray else Color.Green),
                             contentAlignment = Alignment.Center
                         ) {

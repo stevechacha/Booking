@@ -93,10 +93,23 @@ dependencies {
     kapt(libs.android.hilt.androidx.compiler)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
+
+    androidTestImplementation(libs.android.test.junit4)
+    androidTestImplementation(libs.android.test.espresso)
+    androidTestImplementation(libs.compose.ui.test.junit)
+
+    testImplementation(libs.test.junit4)
+    testImplementation(libs.test.robolectric)
+    testImplementation(libs.compose.ui.test.junit)
+    testImplementation(libs.android.test.espresso)
+    testImplementation(libs.test.navigation)
+    testImplementation(libs.test.mockk)
+
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
     implementation ("com.google.accompanist:accompanist-pager:0.28.0")
     implementation  ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
+    implementation  ("com.google.accompanist:accompanist-navigation-material:0.28.0")
+    implementation  ("com.google.accompanist:accompanist-navigation-animation:0.28.0")
     implementation ("com.google.accompanist:accompanist-permissions:0.21.1-beta")
     implementation ("androidx.biometric:biometric:1.1.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -110,16 +123,7 @@ dependencies {
 
 
 
-    androidTestImplementation(libs.android.test.junit4)
-    androidTestImplementation(libs.android.test.espresso)
-    androidTestImplementation(libs.compose.ui.test.junit)
 
-    testImplementation(libs.test.junit4)
-    testImplementation(libs.test.robolectric)
-    testImplementation(libs.compose.ui.test.junit)
-    testImplementation(libs.android.test.espresso)
-    testImplementation(libs.test.navigation)
-    testImplementation(libs.test.mockk)
 }
 
 kotlin {

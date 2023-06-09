@@ -1,4 +1,4 @@
-package com.chacha.presentation.trips
+package com.chacha.presentation.trips.tabs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,13 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Upcoming() {
+fun CompletedTripScreen() {
     Column(modifier = Modifier
         .fillMaxSize()
         .background(MaterialTheme.colorScheme.background)
     ) {
-        Text(text = "Upcoming")
-
+        Text(text = "Completed")
     }
     
 }

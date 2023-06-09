@@ -44,12 +44,12 @@ fun TextImageItem(
                 .background(MaterialTheme.colorScheme.background)
             ,
             contentAlignment = Alignment.Center
-
         ){
             Image(
                 painter = painterResource(id = drawable),
                 contentDescription = "",
                 modifier = Modifier
+                    .align(Alignment.Center)
                     .size(sizeIcon),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
@@ -73,10 +73,8 @@ fun TextImageItemPreview() {
     BookingTheme {
         TextImageItem(
             drawable = R.drawable.profile_account,
-            stringRes = R.string.submit
-        ) {
-
-        }
-
+            stringRes = R.string.submit,
+            onItemClick = {}
+        )
     }
 }

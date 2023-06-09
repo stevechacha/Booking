@@ -16,17 +16,7 @@ import com.chacha.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    onSendMoneyClicked: () -> Unit,
-    onBuyAirtimeClicked: () -> Unit,
-    onBuyGoodsClicked: () -> Unit,
-    onPayBillClicked: () -> Unit,
-    onWithdrawClicked: () -> Unit,
-    onDepositClicked: () -> Unit,
-    onLoanClicked: () -> Unit,
-    onMarketClicked: () -> Unit,
-    onSavingsClicked: () -> Unit
-) {
+fun HomeScreen() {
     Scaffold(
         topBar = {
             HomeToolbar()
@@ -39,59 +29,11 @@ fun HomeScreen(
                 .padding(horizontal = 16.dp, vertical = 16.dp)
         ) {
 
-            TransactionCard(
-                onSendMoneyClicked = onSendMoneyClicked,
-                onBuyAirtimeClicked = onBuyAirtimeClicked,
-                onBuyGoodsClicked = onBuyGoodsClicked,
-                onPayBillClicked = onPayBillClicked,
-                onWithdrawClicked = onWithdrawClicked,
-                onDepositClicked = onDepositClicked
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            PayWithRideSacco(
-                onLoanClicked = onLoanClicked,
-                onMarketClicked = onMarketClicked,
-                onSavingsClicked = onSavingsClicked
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-
         }
 
     }
 }
 
-@Composable
-fun TransactionCard(
-    onSendMoneyClicked: () -> Unit,
-    onBuyAirtimeClicked: () -> Unit,
-    onBuyGoodsClicked: () -> Unit,
-    onPayBillClicked: () -> Unit,
-    onWithdrawClicked: () -> Unit,
-    onDepositClicked: () -> Unit,
-
-    ) {
-    
-    Button(onClick = { }) {
-        
-    }
-
-
-}
-
-@Composable
-fun PayWithRideSacco(
-    onLoanClicked: () -> Unit,
-    onMarketClicked: () -> Unit,
-    onSavingsClicked: () -> Unit
-) {
-
-
-}
 
 
 

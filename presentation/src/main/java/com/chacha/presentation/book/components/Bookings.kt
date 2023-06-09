@@ -90,7 +90,6 @@ fun Bookings() {
 
     ModalBottomSheetLayout(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.surface)
             .fillMaxSize(),
         sheetState = modalBottomSheetState,
         sheetBackgroundColor = Color.Unspecified.copy(alpha = 0F),
@@ -103,6 +102,8 @@ fun Bookings() {
             // 4. when onReturnDateClick open bottom sheet
             // 5. when onPassengerClick open bottom sheet
             // 6. when onVehicleTypeClick open bottom sheet
+
+
 
             BookingBottomSheet(
                 title = "Select From",
