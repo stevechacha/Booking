@@ -112,4 +112,14 @@
     <string name="flight_one">Flight 1</string>
     <string name="flight_two">Flight 2</string>
     <string name="continuee">Search</string>
+    <string name="today">Today</string>
+    <string name="copy_to_clipboard">Copied to clipord</string>
+    <string name="not_found_email">No Email found</string>
+    <string name="select_finish_date_title">Select End Date</string>
+    <string name="apply">Apply</string>
+
+    <plurals name="finish_date">
+        <item quantity="one">%1$s (%2$s day)</item>
+        <item quantity="other">%1$s (%2$s days)</item>
+    </plurals>
 </resources>

@@ -17,7 +17,6 @@ dependencyResolutionManagement {
 }
 mapOf(
     "app" to "app",
-    "data" to "data",
     "domain" to "domain",
    "presentation" to "presentation"
 

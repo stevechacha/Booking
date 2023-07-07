@@ -7,6 +7,7 @@ data class OneWayBookingState(
     val departureDestination: String = "",
     val arrivalDestination: String = "",
     val departureDate: String = "",
+    val returnDate: String = "",
     val departureTime: String = "",
     val farePrice: String = "",
     val numberOfPassengers: Int = 1,

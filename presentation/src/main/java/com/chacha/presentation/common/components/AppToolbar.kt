@@ -1,6 +1,7 @@
 package com.chacha.presentation.common.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Message
 import androidx.compose.material3.*
@@ -10,6 +11,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.chacha.presentation.common.theme.BookingTheme
 import com.chacha.presentation.R
 
@@ -39,7 +41,8 @@ fun AppToolbar(
                     Image(
                         painter = painterResource(id = R.drawable.arrow_back),
                         contentDescription = "Localized description",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }

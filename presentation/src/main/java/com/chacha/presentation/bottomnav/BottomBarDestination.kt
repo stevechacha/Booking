@@ -10,10 +10,10 @@ import com.chacha.presentation.common.navigation.GraphDestinations.PARCEL_ROUTE
 
 
 enum class BottomBarDestination(val route: String, @DrawableRes val icon: Int, val title: String) {
-    HOME(HOME_ROUTE, R.drawable.search_book, "Home"),
+    HOME(HOME_ROUTE, R.drawable.home_logo, "Home"),
     BOOK(BOOKING_ROUTE, R.drawable.search_book, "Book"),
-    MYTRIPS(MY_TRIPS_ROUTE, R.drawable.search_book, "My Trips"),
-    PARCEL(PARCEL_ROUTE, R.drawable.search_book, "Parcel"),
+    MYTRIPS(MY_TRIPS_ROUTE, R.drawable.airline_seat_recline, "My Trips"),
+    PARCEL(PARCEL_ROUTE, R.drawable.shipping_parcel_icon, "Parcel"),
     PROFILE(MY_PROFILE_ROUTE, R.drawable.profile_account, "Profile")
 
 }

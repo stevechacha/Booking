@@ -63,7 +63,7 @@ fun AppCard(
 
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(coil.base.R.drawable.ic_100tb)
+                    .data(coil.base.R.drawable.notification_bg)
                     .build(),
                 placeholder = painterResource(R.drawable.ic_menu),
                 contentDescription = stringResource(id = R.string.user_profile)
@@ -82,7 +82,7 @@ fun AppCard(
                             .data(sponsorLogo)
                             .crossfade(true)
                             .build(),
-                        placeholder = painterResource(coil.base.R.drawable.ic_100tb),
+                        placeholder = painterResource(coil.base.R.drawable.abc_vector_test),
                         contentDescription = stringResource(id = R.string.user_profile)
                     )
                 }

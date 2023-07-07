@@ -73,7 +73,7 @@ fun BookingCard(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Image(
-                    painter = painterResource(id = R.drawable.search_book),
+                    painter = painterResource(id = R.drawable.ic_interchange),
                     contentDescription = null,
                     modifier = Modifier.size(26.dp),
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)

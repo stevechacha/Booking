@@ -126,11 +126,7 @@ fun AppTopBar(
                                 text = "Search...",
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = .32F)
                             )
-                        },
-                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                            containerColor = Color.Transparent,
-
-                        ), keyboardOptions = KeyboardOptions(
+                        }, keyboardOptions = KeyboardOptions(
                             autoCorrect = true,
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Search

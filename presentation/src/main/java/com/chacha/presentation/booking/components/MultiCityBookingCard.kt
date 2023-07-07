@@ -50,7 +50,7 @@ fun MultiCityBookingCard() {
             )
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth(0.85f)
                     .padding(start = 10.dp,),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
@@ -63,7 +63,7 @@ fun MultiCityBookingCard() {
                     thickness = 1.dp,
                     modifier = Modifier
                         .padding(vertical = 8.dp)
-                        .fillMaxWidth(0.80f),
+                        .fillMaxWidth(0.85f),
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 AppTextField(
@@ -78,6 +78,7 @@ fun MultiCityBookingCard() {
             AppTextField(
                 title = "Select Date",
                 onValueChange = {},
+                modifier = Modifier.align(Alignment.CenterVertically)
 
             )
         }

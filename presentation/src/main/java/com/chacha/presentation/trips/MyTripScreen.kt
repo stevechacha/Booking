@@ -2,6 +2,7 @@ package com.chacha.presentation.trips
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,7 +41,10 @@ fun MyTripScreen() {
                 title = "My Trips",
                 showBackArrow = true
             )
-        }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ) { padding ->
         Column(
             modifier = Modifier
@@ -72,7 +76,7 @@ fun MyTripsPager(viewModel: MyTripsViewModel) {
             val modifier = Modifier.tabIndicatorOffset(it[pagerState.currentPage])
             TabRowDefaults.Indicator(
                 modifier,
-                height = 0.5.dp,
+                height = 1.dp,
                 color = MaterialTheme.colorScheme.primary,
             )
         },

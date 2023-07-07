@@ -27,8 +27,8 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun RootScreen() {
-    val bottomSheetNavigator = rememberBottomSheetNavigator()
-    val navController = rememberNavController(bottomSheetNavigator)
+//    val bottomSheetNavigator = rememberBottomSheetNavigator()
+    val navController = rememberNavController()
 
     BookingTheme {
         Surface(
@@ -62,7 +62,7 @@ fun rememberBottomSheetNavigator(
     val sheetState = rememberModalBottomSheetState(
         ModalBottomSheetValue.Hidden,
         animationSpec,
-        skipHalfExpanded,
+        skipHalfExpanded = true,
     )
     return remember(sheetState) {
         BottomSheetNavigator(sheetState = sheetState)
