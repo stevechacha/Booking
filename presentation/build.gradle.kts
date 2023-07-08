@@ -41,12 +41,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
         freeCompilerArgs + "-Xjvm-default=all"
     }
 
@@ -63,66 +63,21 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.3.1"
     }
 }
 
 dependencies {
 
     implementation(project(":domain"))
+
+    implementation(libs.android.coreKtx)
+    implementation(libs.android.appCompat)
+    implementation(libs.android.material)
     implementation(libs.bundles.compose)
-    implementation(libs.compose.constraintlayout)
-
-
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.runtime:runtime:1.4.3")
-    implementation("androidx.compose.foundation:foundation:1.4.3")
-    implementation("androidx.compose.foundation:foundation-layout:1.4.3")
-    implementation("androidx.compose.ui:ui-util:1.4.3")
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
-    implementation("androidx.compose.animation:animation:1.4.3")
-    implementation("androidx.compose.material:material-icons-extended:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
-    implementation("androidx.compose.material3:material3:1.1.1")
-    implementation("androidx.compose.material:material:1.4.3")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.0")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.25.1")
-    implementation("androidx.room:room-runtime:2.5.2")
-    kapt("androidx.room:room-compiler:2.5.2")
-    implementation("androidx.room:room-ktx:2.5.2")
-    implementation("androidx.room:room-paging:2.5.2")
-    implementation("com.google.dagger:dagger:2.46.1")
-    kapt("com.google.dagger:dagger-compiler:2.46.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    implementation("androidx.glance:glance-appwidget:1.0.0-beta01")
-    debugImplementation("com.google.android.glance.tools:appwidget-viewer:0.2.2")
-    implementation("org.apache.commons:commons-csv:1.10.0")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("io.coil-kt:coil-compose:2.3.0")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
-    androidTestImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:core:1.5.0")
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.test:rules:1.5.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
-    androidTestImplementation("androidx.compose.ui:ui-test:1.4.3")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.3")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.46.1")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.46.1")
-
+    implementation(libs.lifecycle.runtimeKtx)
+    implementation(libs.timber)
+    implementation(libs.android.hilt)
     implementation(libs.androidx.splashscreen)
     implementation(libs.kotlin.coroutines.play.services)
     implementation(libs.gms.play.services.auth)
@@ -132,18 +87,32 @@ dependencies {
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.kotlin.coroutines.datetime)
     implementation(libs.zeko.query.builder)
+    kapt(libs.android.hilt.compiler)
+    implementation(libs.android.hilt.navigation.compose)
+    kapt(libs.android.hilt.androidx.compiler)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21")
+    androidTestImplementation(libs.android.test.junit4)
+    androidTestImplementation(libs.android.test.espresso)
+    androidTestImplementation(libs.compose.ui.test.junit)
+
+    testImplementation(libs.test.junit4)
+    testImplementation(libs.test.robolectric)
+    testImplementation(libs.compose.ui.test.junit)
+    testImplementation(libs.android.test.espresso)
+    testImplementation(libs.test.navigation)
+    testImplementation(libs.test.mockk)
 
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
     implementation ("com.google.accompanist:accompanist-pager:0.28.0")
     implementation  ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
     implementation  ("com.google.accompanist:accompanist-navigation-material:0.28.0")
     implementation  ("com.google.accompanist:accompanist-navigation-animation:0.28.0")
-    implementation ("com.google.accompanist:accompanist-permissions:0.25.1")
+    implementation ("com.google.accompanist:accompanist-permissions:0.21.1-beta")
     implementation ("androidx.biometric:biometric:1.1.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 
 
     implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")

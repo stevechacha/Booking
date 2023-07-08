@@ -91,7 +91,7 @@ private fun FinishDateSelectorTopAppBar(
                 Spacer(Modifier.weight(1F))
                 Button(
                     onClick = { onApply() },
-                    contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
+                    contentPadding = ButtonDefaults.ContentPadding,
                     enabled = calendarState.calendarUiState.value.hasSelectedDates,
                 ) {
                     Icon(

@@ -26,7 +26,6 @@ import kotlinx.coroutines.launch
 import kotlin.math.max
 import kotlin.math.roundToInt
 import androidx.compose.foundation.Canvas
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.ui.Alignment
 import com.chacha.presentation.base.RenderAdaptivePane
 import com.chacha.presentation.util.SwipeableDefaults
@@ -187,7 +186,6 @@ fun rememberModalBottomSheetState(
 @ExperimentalMaterialApi
 fun ModalBottomSheetLayout(
     sheetContent: @Composable () -> Unit,
-    windowSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
     sheetState: ModalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden),
     sheetShape: Shape = MaterialTheme.shapes.large,
@@ -216,7 +214,6 @@ fun ModalBottomSheetLayout(
         }
 
         RenderAdaptivePane(
-            windowSizeClass = windowSizeClass,
             contentAlignment = Alignment.TopCenter,
         ) {
             Surface(

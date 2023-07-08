@@ -17,8 +17,9 @@ dependencyResolutionManagement {
 }
 mapOf(
     "app" to "app",
+    "data" to "data",
     "domain" to "domain",
-   "presentation" to "presentation"
+    "presentation" to "presentation"
 
 ).forEach { (projectName, projectPath) ->
     include(":$projectName")
@@ -27,3 +28,5 @@ mapOf(
 rootProject.name = "Booking"
 
 include(":presentation")
+include(":domain")
+include(":data")

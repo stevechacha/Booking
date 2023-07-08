@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -20,18 +19,14 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheets(
-    windowSizeClass: WindowWidthSizeClass,
-    activityResultRegistryOwner: ActivityResultRegistryOwner?,
     appViewModel: AppViewModel = viewModel(),
 ) {
     val coroutineScope = rememberCoroutineScope()
 
     BottomSheetWrapper(
         name = CURRENCY_EDITOR,
-        windowSizeClass = windowSizeClass,
     ) { state ->
         CurrencyEditor(
-            windowSizeClass = windowSizeClass,
             onClose = {
                 coroutineScope.launch {
                     state.hide()
@@ -42,10 +37,8 @@ fun BottomSheets(
 
     BottomSheetWrapper(
         name = CURRENCY_EDITOR,
-        windowSizeClass = windowSizeClass,
     ) { state ->
         CurrencyEditor(
-            windowSizeClass = windowSizeClass,
             onClose = {
                 coroutineScope.launch {
                     state.hide()
@@ -56,7 +49,6 @@ fun BottomSheets(
 
     BottomSheetWrapper(
         name = FINISH_DATE_SELECTOR_SHEET,
-        windowSizeClass = windowSizeClass,
     ) { state ->
         FinishDateSelector(
             selectDate = state.args["initialDate"] as Date?,
@@ -89,7 +81,7 @@ fun BottomSheets(
 }
 
 @Composable
-fun CurrencyEditor(windowSizeClass: WindowWidthSizeClass, onClose: () -> Job) {
+fun CurrencyEditor( onClose: () -> Unit) {
 
 }
 

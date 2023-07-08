@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.chacha.presentation.base.BottomSheets
 import com.chacha.presentation.bottomnav.BottomNavigationBar
 import com.chacha.presentation.common.navigation.RootNavGraph
 import com.chacha.presentation.common.theme.BookingTheme
@@ -28,7 +29,9 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 @Composable
 fun RootScreen() {
 //    val bottomSheetNavigator = rememberBottomSheetNavigator()
-    val navController = rememberNavController()
+    val bottomSheetNavigator = rememberBottomSheetNavigator()
+    val navController = rememberNavController(bottomSheetNavigator)
+
 
     BookingTheme {
         Surface(
@@ -44,6 +47,7 @@ fun RootScreen() {
                         .padding(padding)
                 ) {
                     RootNavGraph(navController = navController,)
+                    BottomSheets()
 
                 }
             }
@@ -51,6 +55,8 @@ fun RootScreen() {
     }
 
 }
+
+
 
 @ExperimentalMaterialNavigationApi
 @OptIn(ExperimentalMaterialApi::class)
@@ -62,11 +68,10 @@ fun rememberBottomSheetNavigator(
     val sheetState = rememberModalBottomSheetState(
         ModalBottomSheetValue.Hidden,
         animationSpec,
-        skipHalfExpanded = true,
+        skipHalfExpanded,
     )
     return remember(sheetState) {
         BottomSheetNavigator(sheetState = sheetState)
     }
 }
-
 
