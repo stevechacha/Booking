@@ -69,6 +69,7 @@ fun AppTopBar(
                         text = title,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.titleMedium
                     )
 
                 },
@@ -126,11 +127,7 @@ fun AppTopBar(
                                 text = "Search...",
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = .32F)
                             )
-                        },
-                        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                            containerColor = Color.Transparent,
-
-                        ), keyboardOptions = KeyboardOptions(
+                        }, keyboardOptions = KeyboardOptions(
                             autoCorrect = true,
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Search

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -8,15 +6,16 @@ plugins {
     id("io.gitlab.arturbosch.detekt")
     kotlin("kapt")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.chacha.presentation"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
+        minSdk = 24
+        targetSdk = 34
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -42,12 +41,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
         freeCompilerArgs + "-Xjvm-default=all"
     }
 
@@ -64,20 +63,30 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.1"
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
+
 }
 
 dependencies {
 
     implementation(project(":domain"))
-
-    implementation(libs.android.coreKtx)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.date.core)
+    implementation(libs.date.sheet.dialog)
+    implementation(libs.vanpra.date.sheet.dialog)
+    implementation(libs.compose.constraintlayout)
+    implementation(libs.datastore)
+    implementation(libs.coil.gf)
     implementation(libs.android.appCompat)
-    implementation(libs.android.material)
     implementation(libs.bundles.compose)
+    implementation(libs.bundles.accompanist)
     implementation(libs.lifecycle.runtimeKtx)
     implementation(libs.timber)
+    implementation(libs.bundles.retrofit)
     implementation(libs.android.hilt)
     implementation(libs.androidx.splashscreen)
     implementation(libs.kotlin.coroutines.play.services)
@@ -93,37 +102,20 @@ dependencies {
     kapt(libs.android.hilt.androidx.compiler)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-
-    androidTestImplementation(libs.android.test.junit4)
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.android.test.espresso)
-    androidTestImplementation(libs.compose.ui.test.junit)
-
     testImplementation(libs.test.junit4)
     testImplementation(libs.test.robolectric)
-    testImplementation(libs.compose.ui.test.junit)
     testImplementation(libs.android.test.espresso)
     testImplementation(libs.test.navigation)
     testImplementation(libs.test.mockk)
-
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
-    implementation ("com.google.accompanist:accompanist-pager:0.28.0")
-    implementation  ("com.google.accompanist:accompanist-pager-indicators:0.28.0")
-    implementation  ("com.google.accompanist:accompanist-navigation-material:0.28.0")
-    implementation  ("com.google.accompanist:accompanist-navigation-animation:0.28.0")
-    implementation ("com.google.accompanist:accompanist-permissions:0.21.1-beta")
-    implementation ("androidx.biometric:biometric:1.1.0")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(libs.kizitonwose.calender)
 
 
-    implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
-    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.1.6")
-    implementation ("com.google.android.material:material:1.7.0-beta01")
-
-
-
-
-
+}
+kapt {
+    correctErrorTypes = true
 }
 
 kotlin {

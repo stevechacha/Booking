@@ -1,5 +1,8 @@
 package com.chacha.presentation.common.theme
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
 val PrimaryColor = Color(0xffFF4500)
@@ -45,3 +48,39 @@ val TealColor=Color(0xFF196D77)
 val LightGreenColor=Color(0xFF676962)
 
 val Border = Color(0xFF535457)
+
+
+
+
+val colorBackground
+    @Composable
+    @ReadOnlyComposable
+    get() = MaterialTheme.colorScheme.surface
+
+val colorOnBackground
+    @Composable
+    @ReadOnlyComposable
+    get() = MaterialTheme.colorScheme.onSurface
+
+val colorButton
+    @Composable
+    @ReadOnlyComposable
+    get() =
+            MaterialTheme.colorScheme.secondaryContainer
+
+val colorOnButton
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        MaterialTheme.colorScheme.onSurfaceVariant
+
+val colorEditor
+    @Composable
+    @ReadOnlyComposable
+    get() =
+        MaterialTheme.colorScheme.surface
+
+val colorOnEditor
+    @Composable
+    @ReadOnlyComposable
+    get() = MaterialTheme.colorScheme.onSurface

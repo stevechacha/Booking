@@ -2,6 +2,7 @@ package com.chacha.presentation.trips
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.chacha.presentation.booking.BookingEvent
 import com.chacha.presentation.common.components.AppToolbar
 import com.chacha.presentation.trips.tabs.CancelledTripScreen
 import com.chacha.presentation.trips.tabs.CompletedTripScreen
@@ -40,7 +40,10 @@ fun MyTripScreen() {
                 title = "My Trips",
                 showBackArrow = true
             )
-        }
+        },
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ) { padding ->
         Column(
             modifier = Modifier
@@ -62,7 +65,7 @@ fun MyTripsPager(viewModel: MyTripsViewModel) {
     val coroutineScope = rememberCoroutineScope()
     LaunchedEffect(key1 = pagerState) {
         snapshotFlow { pagerState.currentPage }.collectLatest { settledPage ->
-            viewModel.onTriggerEvent(BookingEvent.OnEventPageChange(settledPage))
+            viewModel.onTriggerEvent(MyTripEvent.OnEventPageChange(settledPage))
         }
     }
 
@@ -72,7 +75,7 @@ fun MyTripsPager(viewModel: MyTripsViewModel) {
             val modifier = Modifier.tabIndicatorOffset(it[pagerState.currentPage])
             TabRowDefaults.Indicator(
                 modifier,
-                height = 0.5.dp,
+                height = 1.dp,
                 color = MaterialTheme.colorScheme.primary,
             )
         },
@@ -111,7 +114,6 @@ fun MyTripsPager(viewModel: MyTripsViewModel) {
         count = pages.size,
         key = { it }
     ) { page ->
-
         when (page) {
             0 -> UpcomingTripScreen()
             1 -> CompletedTripScreen()
