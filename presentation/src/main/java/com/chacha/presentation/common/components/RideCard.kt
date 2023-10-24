@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -15,18 +18,15 @@ import com.chacha.presentation.common.theme.mainBackground
 @Composable
 fun RideCard(content: @Composable ColumnScope.() -> Unit) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 6.dp, end = 6.dp, bottom = 13.dp, start = 6.dp),
-        elevation = 3.dp,
-        backgroundColor = mainBackground,
-        border = BorderStroke(1.dp, Border)
+        modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 16.dp,vertical = 12.dp)
+
     ) {
         Column(
             content = content,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 6.dp, end = 13.dp, bottom = 13.dp, start = 13.dp)
+                .padding(16.dp)
         )
     }
 }

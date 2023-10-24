@@ -2,80 +2,180 @@ package com.chacha.presentation.booking.tabs.multicity
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.*
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.res.stringResource
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.chacha.presentation.book.components.MultiCityCard
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import com.chacha.presentation.R
+import androidx.navigation.compose.rememberNavController
+import com.chacha.presentation.booking.BookingUiEvent
+import com.chacha.presentation.booking.BookingUiViewModel
+import com.chacha.presentation.booking.parsedDate
 import com.chacha.presentation.booking.components.MultiCityBookingCard
-import com.chacha.presentation.booking.components.MultiCityVehiclePicker
-import com.chacha.presentation.booking.tabs.one_way.OneWayBookingEvent
-import com.chacha.presentation.booking.tabs.one_way.OneWayBookingViewModel
-import com.chacha.presentation.common.theme.PrimaryColor
+import com.chacha.presentation.booking.components.PassengerCardItem
+import com.chacha.presentation.booking.components.VehicleCardItem
+import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheet
+import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheetLayout
+import com.chacha.presentation.extensions.toMillis
+import com.chacha.presentation.modal_sheet.WeBookingModalSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.time.LocalDateTime
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalPagerApi::class,
-    ExperimentalCoroutinesApi::class
-)
+@OptIn( ExperimentalPagerApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MultiCityBookingScreen(navController: NavController,pagerState: PagerState) {
-    var pickedDate by remember { mutableStateOf(LocalDate.now()) }
-    val formattedDate by remember { derivedStateOf { DateTimeFormatter.ofPattern("dd MMM yyyy").format(pickedDate) } }
-    val  oneWayBookingViewModel: OneWayBookingViewModel = viewModel()
-    val oneWayBookingState by oneWayBookingViewModel.state.collectAsState()
+fun MultiCityBookingScreen(
+    navController: NavController
+) {
+    val bookingUiViewModel: BookingUiViewModel = viewModel()
+    val bookingUiState by bookingUiViewModel.uiState.collectAsState()
+    var skipPartiallyExpanded by remember { mutableStateOf(true) }
+    val sheetState = androidx.compose.material3.rememberModalBottomSheetState(
+        skipPartiallyExpanded = skipPartiallyExpanded
+    )
 
+    var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+    var currentBottomSheet: BookingTypeBottomSheet? by remember { mutableStateOf(null) }
+    val dateTime = LocalDateTime.now()
 
-    val fromDeparture by remember { mutableStateOf("") }
-    val toDestination by remember { mutableStateOf("") }
-    val dateDialogState = rememberMaterialDialogState()
-    val context = LocalContext.current
-    val currentDate = LocalDate.now()
-    val  showCurrentDate = currentDate.toString()
+    val state = rememberDatePickerState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 16.dp)
+            .padding(vertical = 16.dp)
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 
-        MultiCityBookingCard()
-        MultiCityBookingCard()
-        MultiCityVehiclePicker(
-            oneWayBookingState = oneWayBookingState,
-            onVehicleChanged = {
-            } ,
-            onSeatChanged = {
+        MultiCityBookingCard(
+            fromContent = {
+                Column{
+                   Text(text = "From")
+                    TextField(
+                        value = bookingUiState.departureDate,
+                        onValueChange = {
+                            state.selectedDateMillis?.let {
+                                BookingUiEvent.DepartureDateSelected(
+                                    it.parsedDate()
+                                )
+                            }?.let { bookingUiViewModel.handleUiEvent(it) }
+                        },
+                        label = { Text("Label") },
+                        modifier = Modifier.clickable(MutableInteractionSource(),null){
+                            isSheetOpen = true
+                            currentBottomSheet = BookingTypeBottomSheet.ONE_BOOKING_DATE
+
+                        },
+                        placeholder = {
+                            Text("hint")
+                        },
+                        enabled = false
+                    )
+
+                }
+
             },
-            onBookClick = {
-                navController.navigate("booking_details")
+            toContent = {
+                Column{
+                    Text(text = "To")
+                    Text(
+                        text = "" + "Select Destination",
+                        modifier = Modifier.clickable(MutableInteractionSource(),null){
+                            isSheetOpen = true
+                            currentBottomSheet = BookingTypeBottomSheet.ONE_BOOKING_DATE
+
+                        }
+                    )
+                }
+            },
+            dateContent = {
+                Text(
+                    text = " " + if(state.selectedDateMillis!=null){
+                        state.selectedDateMillis?.let {
+                            BookingUiEvent.DepartureDateSelected(
+                                date = it.parsedDate()
+                            )
+                        }?.let { bookingUiViewModel.handleUiEvent(it) }
+                    }
+                    else dateTime.toMillis().parsedDate(),
+                    modifier = Modifier.clickable(MutableInteractionSource(),null){
+                        isSheetOpen = true
+                        currentBottomSheet = BookingTypeBottomSheet.ONE_BOOKING_DATE
+
+                    }
+                )
+
+            }
+        )
+
+        PassengerCardItem(
+            bookingUiState = bookingUiState,
+            onPassengerNumberChanged = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.PASSENGERS
+
+            },
+        )
+
+        VehicleCardItem(
+            bookingUiState = bookingUiState,
+            onVehicleChanged = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.VEHICLE_TYPE
             },
         )
 
     }
 
+    if (isSheetOpen) {
+        WeBookingModalSheet(
+            onDismissRequest = {
+                isSheetOpen = false
+            },
+            sheetState = when(currentBottomSheet){
+                BookingTypeBottomSheet.DEPARTURE -> androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                BookingTypeBottomSheet.DESTINATION -> androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                BookingTypeBottomSheet.ONE_BOOKING_DATE -> androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                BookingTypeBottomSheet.RETURN_DATE -> androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                BookingTypeBottomSheet.PASSENGERS -> androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = false)
+                BookingTypeBottomSheet.VEHICLE_TYPE -> androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = false)
+                null -> androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
+            }
+        ) {
+            currentBottomSheet?.let {
+                BookingTypeBottomSheetLayout(
+                    bookingTypeBottomSheet = it,
+                    closeSheet = { isSheetOpen = false },
+                    onItemSelected = {
+                        isSheetOpen = false
+                    },
+                    navController = navController,
+                )
+            }
+        }
+    }
 
+
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+@Preview
+fun MultiCityScreenPreview() {
+    MultiCityBookingScreen(
+        navController = rememberNavController(),
+    )
 }

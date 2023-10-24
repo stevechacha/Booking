@@ -4,12 +4,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material3.Card
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,20 +26,21 @@ import com.chacha.presentation.R
 @Composable
 @Preview
 fun MyTripCardItem() {
-    Card (
-        modifier = Modifier.fillMaxWidth(),
+    OutlinedCard (
+        modifier = Modifier.fillMaxWidth()
+            .height(180.dp),
         shape = RoundedCornerShape(0.dp)
     ){
+        Icon(
+            painter = painterResource(id = R.drawable.airline_seat_recline),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize()
+        )
         Column(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier.fillMaxWidth()
+                .padding(16.dp),
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.airline_seat_recline)
-                , contentDescription = null,
-                modifier = Modifier.fillMaxWidth()
-                    .height(100.dp)
-            )
+
             Text(text = "Trip Name")
 
             Row(

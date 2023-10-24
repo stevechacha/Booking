@@ -27,6 +27,4 @@ mapOf(
 }
 rootProject.name = "Booking"
 
-include(":presentation")
-include(":domain")
-include(":data")
+

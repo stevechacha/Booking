@@ -1,202 +1,158 @@
 package com.chacha.presentation.booking.tabs.returns_booking
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.chacha.presentation.booking.BookingUiEvent
+import com.chacha.presentation.booking.BookingUiViewModel
+import com.chacha.presentation.booking.parsedDate
 import com.chacha.presentation.booking.components.BookingCard
-import com.chacha.presentation.booking.components.DateBookingCard
+import com.chacha.presentation.booking.components.PassengerCardItem
 import com.chacha.presentation.booking.components.ReturnDateBookingCard
-import com.chacha.presentation.booking.tabs.one_way.BottomSheetType
-import com.chacha.presentation.booking.tabs.one_way.OneWayBookingViewModel
+import com.chacha.presentation.booking.components.VehicleCardItem
+import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheet
+import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheetLayout
+import com.chacha.presentation.modal_sheet.WeBookingModalSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.time.LocalDateTime
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(
-    ExperimentalMaterialApi::class, ExperimentalPagerApi::class,
-    ExperimentalCoroutinesApi::class
+    ExperimentalPagerApi::class,
 )
 @Composable
-fun ReturnBookingScreen(navController: NavController, pagerState: PagerState) {
-    val oneWayBookingViewModel: OneWayBookingViewModel = viewModel()
-    val oneWayState by oneWayBookingViewModel.state.collectAsState()
+fun ReturnBookingScreen(
+    navController: NavController,
+) {
+    val bookingUiViewModel: BookingUiViewModel = viewModel()
+    val bookingUiState by bookingUiViewModel.uiState.collectAsState()
+    val skipPartiallyExpanded by remember { mutableStateOf(true) }
+    var edgeToEdgeEnabled by remember { mutableStateOf(true) }
+    val sheetStateFullyExpanded = rememberModalBottomSheetState(
+        skipPartiallyExpanded = skipPartiallyExpanded
+    )
+    val sheetStatePartiallyExpanded = rememberModalBottomSheetState(
+        skipPartiallyExpanded = false
+    )
+
+    var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+    var currentBottomSheet: BookingTypeBottomSheet? by remember { mutableStateOf(null) }
+    val dateTime = LocalDateTime.now()
+
+    val state = rememberDateRangePickerState()
+
     Column(
-        modifier = Modifier.fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 20.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BookingCard(
-            oneWayBookingState = oneWayState,
-            onFromClick = {},
-            onToClick = {},
-            navController = navController
+            bookingUiState = bookingUiState,
+            onFromClick = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.DEPARTURE
+            },
+            onToClick = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.DESTINATION
+            },
         )
 
         ReturnDateBookingCard(
-            oneWayBookingState = oneWayState,
-            onReturnDateChanged = {},
-            onVehicleChanged = {},
-            onPassengerNumberChanged = {},
-            onDepartureDateChanged = {}
+            bookingUiState = bookingUiState,
+            onReturnDateChanged = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.RETURN_DATE
+
+                state.selectedEndDateMillis?.let { it1 ->
+                    state.selectedStartDateMillis?.let { it2 ->
+                        BookingUiEvent.ReturnDateSelected(
+                            departureDate = it2.parsedDate(),
+                            endDate = it1.parsedDate()
+                        )
+                    }
+                }?.let { it2 -> bookingUiViewModel.handleUiEvent(it2) }
+            },
+            onDepartureDateChanged = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.RETURN_DATE
+
+            },
         )
 
+        PassengerCardItem(
+            bookingUiState = bookingUiState,
+            onPassengerNumberChanged = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.PASSENGERS
+
+            },
+        )
+
+        VehicleCardItem(
+            bookingUiState = bookingUiState,
+            onVehicleChanged = {
+                isSheetOpen = true
+                currentBottomSheet = BookingTypeBottomSheet.VEHICLE_TYPE
+            },
+        )
+    }
+
+    if (isSheetOpen) {
+        WeBookingModalSheet(
+            onDismissRequest = {
+                isSheetOpen = false
+            },
+            sheetState = when(currentBottomSheet){
+                BookingTypeBottomSheet.DEPARTURE -> sheetStateFullyExpanded
+                BookingTypeBottomSheet.DESTINATION -> sheetStateFullyExpanded
+                BookingTypeBottomSheet.ONE_BOOKING_DATE -> sheetStateFullyExpanded
+                BookingTypeBottomSheet.RETURN_DATE -> sheetStateFullyExpanded
+                BookingTypeBottomSheet.PASSENGERS -> sheetStatePartiallyExpanded
+                BookingTypeBottomSheet.VEHICLE_TYPE -> sheetStatePartiallyExpanded
+                null -> sheetStateFullyExpanded
+            }
+        ) {
+            currentBottomSheet?.let {
+                BookingTypeBottomSheetLayout(
+                    bookingTypeBottomSheet = it,
+                    closeSheet = { isSheetOpen = false },
+                    onItemSelected = {
+                        isSheetOpen = false
+                    },
+                    navController = navController,
+                )
+            }
+        }
     }
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 @Preview
 fun ReturnBookingPreview() {
     ReturnBookingScreen(
         navController = rememberNavController(),
-        pagerState = rememberPagerState(),
     )
 }
-
-@Composable
-fun SheetLayout(
-    bottomSheetType: BottomSheetType,
-    closeSheet: () -> Unit
-) {
-
-    when (bottomSheetType) {
-        BottomSheetType.TYPE1 -> Screen1(closeSheet)
-        BottomSheetType.TYPE2 -> Screen2(closeSheet)
-        BottomSheetType.TYPE3 -> Screen3(closeSheet)
-    }
-
-}
-
-@Composable
-fun Screen1(closeSheet: () -> Unit) {
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxSize()
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(100.dp))
-            Text(text = "Bottom sheet type 1")
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { closeSheet() }) {
-                Text(text = "Close")
-            }
-            Spacer(modifier = Modifier.height(50.dp))
-        }
-    }
-
-}
-
-@Composable
-fun Screen2(closeSheet: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxSize()
-
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(100.dp))
-            Text(text = "Bottom sheet type 2")
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { closeSheet() }) {
-                Text(text = "Close")
-            }
-            Spacer(modifier = Modifier.height(50.dp))
-        }
-    }
-}
-
-@Composable
-fun Screen3(closeSheet: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxSize()
-
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Gray),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(100.dp))
-
-            LazyColumn {
-                items(200) {
-                    Text(text = "Item $it", modifier = Modifier.height(50.dp))
-                }
-            }
-            Text(text = "Bottom sheet type 2")
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { closeSheet() }) {
-                Text(text = "Close")
-            }
-            Spacer(modifier = Modifier.height(50.dp))
-        }
-    }
-}
-
-@Composable
-fun CustomTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    onClick: (() -> Unit)? = null,
-) {
-    val onClickSource = remember { MutableInteractionSource() }
-
-
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        interactionSource = onClickSource,
-        enabled = enabled,
-        readOnly = onClick != null,
-        modifier = modifier
-            // add clickable to work with talkback/accessibility
-            .clickable(enabled = enabled) { onClick?.invoke() },
-    )
-}
-
-
-
-

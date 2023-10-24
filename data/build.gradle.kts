@@ -10,11 +10,11 @@ plugins {
 
 android {
     namespace = "com.chacha.data"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
+        minSdk = 24
+        targetSdk = 34
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -44,20 +44,18 @@ android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
 
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 dependencies {
     implementation(project(":domain"))
-    implementation(libs.android.coreKtx)
     implementation(libs.android.appCompat)
-    implementation(libs.android.material)
     api(libs.kotlin.coroutines.datetime)
     implementation(libs.android.hilt)
     implementation(libs.timber)
@@ -73,8 +71,8 @@ dependencies {
     implementation(libs.ktor.json)
     implementation(libs.ktor.auth)
     implementation(libs.ktor.logging)
+    implementation(libs.bundles.retrofit)
 
-    androidTestImplementation(libs.android.test.junit4)
     androidTestImplementation(libs.android.test.espresso)
 
     testImplementation(libs.test.junit.ktx)
@@ -85,20 +83,7 @@ dependencies {
     testImplementation(libs.ktor.mock)
     testImplementation(libs.test.mockk)
 
-    //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
-    implementation ("androidx.work:work-runtime-ktx:2.7.1")
 
-
-    //Moshi
-    implementation ("com.squareup.moshi:moshi-kotlin:1.13.0")
-    implementation ("com.squareup.moshi:moshi-adapters:1.13.0")
-    implementation ("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    //Interceptor
-    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
 }
 
 kotlin {

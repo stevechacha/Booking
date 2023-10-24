@@ -1,27 +1,24 @@
-@file:Suppress("UnstableApiUsage")
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.android.application") version "7.4.0" apply false
-    id("com.android.library") version "7.4.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.7.10" apply false
-    id("com.google.devtools.ksp") version "1.7.0-1.0.6" apply true
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
-    id("io.gitlab.arturbosch.detekt") version "1.18.0-RC2"
-    id("com.diffplug.spotless") version "6.0.0"
-    id("org.jetbrains.dokka") version "1.7.10"
-//    id ("androidx.navigation.safeargs.kotlin") version "2.5.3" apply false
-    kotlin("plugin.serialization") version "1.6.21"
-
+    alias(libs.plugins.com.android.application) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 
 buildscript {
     dependencies {
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.42")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.48")
         classpath("com.google.gms:google-services:4.3.14")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
         classpath("com.google.firebase:perf-plugin:1.4.2")
-
-//        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3")
 
     }
 }
