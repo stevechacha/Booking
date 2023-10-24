@@ -13,8 +13,18 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import com.chacha.presentation.activity.appTheme
+import com.chacha.presentation.onboard.dataStore
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+enum class ThemeMode { LIGHT, NIGHT, SYSTEM }
 
 private val LightColorScheme = lightColorScheme(
     primary = PrimaryColor,
@@ -39,27 +49,35 @@ private val LightColorScheme = lightColorScheme(
 private val DarkColorScheme = darkColorScheme(
     primary = PrimaryColor,
     onPrimary = PrimaryTextColor,
-    secondary = SecondaryLightColor,
+    secondary = SecondaryColor,
     onSecondary = SecondaryTextColor,
     tertiary = PrimaryLightColor,
     onTertiary = PrimaryTextColor,
-    background = BackgroundDarkColor,
-    onBackground = Color.White,
-    surface = SurfaceDark,
-    onSurface = Color.White,
-    surfaceVariant = SurfaceDark,
-    onSurfaceVariant = Color.White,
+    background = BackgroundLightColor,
+    onBackground = Color.Black,
+    surface = SurfaceLight,
+    onSurface = Color.Black,
+    surfaceVariant = SurfaceLight,
+    onSurfaceVariant = Color.Black,
     secondaryContainer = PrimaryColor,
     onSecondaryContainer = Color.White,
     error = ErrorColor,
     onError = OnErrorColor
 )
 
+
+@Composable
+fun isNightMode(): Boolean = when (LocalContext.current.appTheme) {
+    ThemeMode.LIGHT -> false
+    ThemeMode.NIGHT -> true
+    else -> isSystemInDarkTheme()
+}
+
+
 @Composable
 fun BookingTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    darkTheme: Boolean = false,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -70,16 +88,15 @@ fun BookingTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
+    val view = LocalView.current
     val systemUiController = rememberSystemUiController()
-
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = if(darkTheme) BackgroundDarkColor else BackgroundLightColor
-        )
-        systemUiController.setNavigationBarColor(
-            color = if (darkTheme) BackgroundDarkColor else  BackgroundLightColor
-        )
-
+    if (!view.isInEditMode) {
+        SideEffect {
+            systemUiController.setSystemBarsColor(
+                color =  colorScheme.background
+            )
+        }
     }
 
     MaterialTheme(
@@ -88,6 +105,28 @@ fun BookingTheme(
         shapes = rideShapes,
         content = content
     )
+}
+
+
+
+
+
+suspend fun switchTheme(context: Context, mode: ThemeMode) {
+    context.dataStore.edit {
+        it[stringPreferencesKey("theme")] = mode.toString()
+    }
+
+    context.appTheme = mode
+}
+
+fun syncTheme(context: Context) {
+    val currentValue = runBlocking { context.dataStore.data.first() }
+
+    val mode = ThemeMode.valueOf(
+        currentValue[stringPreferencesKey("theme")] ?: ThemeMode.SYSTEM.toString()
+    )
+
+    context.appTheme = mode
 }
 
 private fun Context.findActivity(): Activity {

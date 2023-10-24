@@ -26,11 +26,10 @@ import kotlinx.coroutines.launch
 import kotlin.math.max
 import kotlin.math.roundToInt
 import androidx.compose.foundation.Canvas
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.ui.Alignment
-import com.chacha.presentation.base.RenderAdaptivePane
-import com.chacha.presentation.util.SwipeableDefaults
-import com.chacha.presentation.util.SwipeableState
 import com.chacha.presentation.util.PreUpPostDownNestedScrollConnection
+import com.chacha.presentation.util.SwipeableState
 import com.chacha.presentation.util.swipeable
 
 
@@ -62,7 +61,7 @@ class ModalBottomSheetState(
 
     constructor(
         initialValue: ModalBottomSheetValue,
-        animationSpec: AnimationSpec<Float> = SwipeableDefaults.AnimationSpec,
+        animationSpec: AnimationSpec<Float> = androidx.compose.material.SwipeableDefaults.AnimationSpec,
         confirmStateChange: (ModalBottomSheetValue) -> Boolean = { true },
         render: MutableState<Boolean>,
     ) : this(initialValue, animationSpec, isSkipHalfExpanded = false, confirmStateChange, render.value)
@@ -141,7 +140,7 @@ class ModalBottomSheetState(
 @ExperimentalMaterialApi
 fun rememberModalBottomSheetState(
     initialValue: ModalBottomSheetValue,
-    animationSpec: AnimationSpec<Float> = SwipeableDefaults.AnimationSpec,
+    animationSpec: AnimationSpec<Float> = androidx.compose.material.SwipeableDefaults.AnimationSpec,
     skipHalfExpanded: Boolean,
     confirmStateChange: (ModalBottomSheetValue) -> Boolean = { true },
     render: Boolean = initialValue !== ModalBottomSheetValue.Hidden,
@@ -172,7 +171,7 @@ fun rememberModalBottomSheetState(
 @ExperimentalMaterialApi
 fun rememberModalBottomSheetState(
     initialValue: ModalBottomSheetValue,
-    animationSpec: AnimationSpec<Float> = SwipeableDefaults.AnimationSpec,
+    animationSpec: AnimationSpec<Float> = androidx.compose.material.SwipeableDefaults.AnimationSpec,
     confirmStateChange: (ModalBottomSheetValue) -> Boolean = { true },
 ): ModalBottomSheetState = rememberModalBottomSheetState(
     initialValue = initialValue,

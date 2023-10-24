@@ -2,7 +2,7 @@ package com.chacha.presentation.util
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.chacha.presentation.calendar.CALENDAR_STARTS_ON
+import com.chacha.presentation.base.calendar.CALENDAR_STARTS_ON
 import java.time.YearMonth
 import java.time.temporal.WeekFields
 

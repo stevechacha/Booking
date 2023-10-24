@@ -1,25 +1,25 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("dagger.hilt.android.plugin")
     id("org.jlleitschuh.gradle.ktlint")
     id("io.gitlab.arturbosch.detekt")
     kotlin("kapt")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    id("dagger.hilt.android.plugin")
     id("com.google.firebase.crashlytics")
+    id("com.google.devtools.ksp")
     id("com.google.firebase.firebase-perf")
-//    id ("androidx.navigation.safeargs")
 }
 
 android {
     namespace ="com.chacha.booking"
-    compileSdk =33
+    compileSdk =34
 
     defaultConfig {
         applicationId= "com.chacha.booking"
-        minSdk =21
-        targetSdk =33
+        minSdk =24
+        targetSdk =34
         versionCode= 1
         versionName= "1.0"
 
@@ -47,17 +47,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility =JavaVersion.VERSION_1_8
-        targetCompatibility =JavaVersion.VERSION_1_8
+//        coreLibraryDesugaringEnabled = true
+        sourceCompatibility =JavaVersion.VERSION_17
+        targetCompatibility =JavaVersion.VERSION_17
     }
 
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
         freeCompilerArgs + "-Xjvm-default=all"
 
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes+= ("META-INF/INDEX.LIST")
@@ -66,13 +67,16 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.1"
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
 
     buildFeatures {
-        viewBinding =true
         compose =true
     }
+    hilt {
+        enableExperimentalClasspathAggregation = true
+    }
+
 
 }
 
@@ -82,20 +86,14 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":presentation"))
 
-
-    implementation(libs.android.coreKtx)
+    implementation(platform(libs.compose.bom))
     implementation(libs.android.appCompat)
-    implementation(libs.android.material)
     implementation(libs.bundles.compose)
     implementation(libs.lifecycle.runtimeKtx)
     implementation(libs.timber)
     implementation(libs.android.hilt)
     implementation(libs.androidx.splashscreen)
-    implementation(libs.kotlin.coroutines.play.services)
-    implementation(libs.gms.play.services.auth)
-    implementation(libs.accompanist.flowlayout)
-    implementation(libs.lottie.compose)
-    implementation(libs.gson.gson)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.kotlin.coroutines.datetime)
     implementation(libs.zeko.query.builder)
@@ -103,8 +101,14 @@ dependencies {
     implementation(libs.android.hilt.navigation.compose)
     kapt(libs.android.hilt.androidx.compiler)
     debugImplementation(libs.compose.ui.tooling)
+    androidTestImplementation(platform(libs.compose.bom))
     debugImplementation(libs.compose.ui.test.manifest)
 
 
 
+
+}
+
+kapt {
+    correctErrorTypes = true
 }

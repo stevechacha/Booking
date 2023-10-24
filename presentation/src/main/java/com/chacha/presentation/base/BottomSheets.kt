@@ -1,17 +1,21 @@
 package com.chacha.presentation.base
 
 import android.os.Build
-import androidx.activity.result.ActivityResultRegistryOwner
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.Job
+import androidx.navigation.NavController
+import com.chacha.presentation.common.navigation.GraphDestinations.CURRENCY_EDITOR
+import com.chacha.presentation.common.navigation.GraphDestinations.FINISH_DATE_SELECTOR_SHEET
+import com.chacha.presentation.common.navigation.GraphDestinations.SETTINGS_CHANGE_LOCALE_SHEET
+import com.chacha.presentation.common.navigation.GraphDestinations.SETTINGS_CHANGE_THEME_SHEET
+import com.chacha.presentation.common.navigation.GraphDestinations.SETTINGS_SHEET
+import com.chacha.presentation.settings.Settings
+import com.chacha.presentation.settings.ThemeSwitcherDialog
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -19,7 +23,7 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheets(
-    appViewModel: AppViewModel = viewModel(),
+    appViewModel: AppViewModel = hiltViewModel(),
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -36,16 +40,18 @@ fun BottomSheets(
     }
 
     BottomSheetWrapper(
-        name = CURRENCY_EDITOR,
+        name = SETTINGS_CHANGE_THEME_SHEET,
     ) { state ->
-        CurrencyEditor(
+        ThemeSwitcherDialog(
             onClose = {
-                coroutineScope.launch {
-                    state.hide()
-                }
+                coroutineScope.launch { state.hide() }
             }
         )
     }
+
+
+
+
 
     BottomSheetWrapper(
         name = FINISH_DATE_SELECTOR_SHEET,
@@ -66,36 +72,11 @@ fun BottomSheets(
     }
 
 
-    /* BottomSheetWrapper(
-         name = SETTINGS_CHANGE_THEME_SHEET,
-         windowSizeClass = windowSizeClass,
-     ) { state ->
-         ThemeSwitcherDialog(
-             onClose = {
-                 coroutineScope.launch { state.hide() }
-             }
-         )
-     }*/
-
-
 }
 
 @Composable
-fun CurrencyEditor( onClose: () -> Unit) {
+fun CurrencyEditor(onClose: () -> Unit) {
 
 }
 
-const val WALLET_SHEET = "wallet_sheet"
-const val DEFAULT_RECALC_BUDGET_CHOOSER = "default_recalc_budget_chooser"
-const val CURRENCY_EDITOR = "currency_editor"
-const val FINISH_DATE_SELECTOR_SHEET = "finish_date_selector_sheet"
-const val SETTINGS_SHEET = "settings_sheet"
-const val RECALCULATE_DAILY_BUDGET_SHEET = "recalculate_daily_budget_sheet"
-const val FINISH_PERIOD_SHEET = "finish_period_sheet"
-const val ON_BOARDING_SHEET = "on_boarding_sheet"
-const val NEW_DAY_BUDGET_DESCRIPTION_SHEET = "new_day_budget_description_sheet"
-const val BUDGET_IS_OVER_DESCRIPTION_SHEET = "budget_is_over_description_sheet"
-const val DEBUG_MENU_SHEET = "debug_menu_sheet"
-const val BUG_REPORTER_SHEET = "bug_reporter_sheet"
-const val SETTINGS_CHANGE_THEME_SHEET = "settings_change_theme_sheet"
-const val SETTINGS_CHANGE_LOCALE_SHEET = "settings_change_locale_sheet"
+
