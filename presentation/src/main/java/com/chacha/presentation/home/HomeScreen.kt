@@ -17,6 +17,11 @@ import com.chacha.presentation.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+    }
     Scaffold(
         topBar = {
             HomeToolbar()

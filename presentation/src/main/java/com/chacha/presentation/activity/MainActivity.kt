@@ -1,38 +1,55 @@
 package com.chacha.presentation.activity
 
+import android.content.Context
+import android.graphics.Color.TRANSPARENT
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Modifier
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.chacha.presentation.bottomnav.BottomNavigationBar
-import com.chacha.presentation.common.navigation.GraphDestinations
-import com.chacha.presentation.common.navigation.RootNavGraph
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
 import com.chacha.presentation.common.theme.BookingTheme
+import com.chacha.presentation.common.theme.ThemeMode
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import java.util.Locale
+
+val Context.dataStore by preferencesDataStore("settings")
+var Context.appTheme by mutableStateOf(ThemeMode.SYSTEM)
+var Context.appLocale: Locale? by mutableStateOf(null)
+var Context.systemLocale: Locale? by mutableStateOf(null)
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val isDone: MutableState<Boolean> = mutableStateOf(false)
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val context = this.applicationContext
+        lifecycleScope.launch { context.dataStore.data.first() }
         super.onCreate(savedInstanceState)
         setContent {
-            RootScreen()
+            val localContext = LocalContext.current
+            LaunchedEffect(Unit) {
+               /* syncTheme(localContext)
+                syncOverrideLocale(localContext)*/
+                isDone.value = true
+            }
+            if (isDone.value) {
+                BookingTheme {
+                    RootScreen()
+                }
+            }
         }
     }
 }

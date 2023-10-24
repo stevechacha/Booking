@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,8 +17,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.chacha.presentation.common.theme.isNightMode
 import com.chacha.presentation.util.observeLiveData
-import com.chacha.presentation.util.observeLiveData
+import com.chacha.presentation.util.setSystemStyle
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -28,7 +30,7 @@ fun BottomSheetWrapper(
     appViewModel: AppViewModel = viewModel(),
     cancelable: Boolean = true,
     state: ModalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden),
-    content: @Composable (state: ModalBottomSheetState) -> Unit
+    content: @Composable (state: ModalBottomSheetState) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -57,23 +59,11 @@ fun BottomSheetWrapper(
     }
 
     if (!state.render) return
-    
+
     val localDensity = LocalDensity.current
 
     val statusBarHeight = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
-
-    /*setSystemStyle(
-        style = {
-            SystemBarState(
-                statusBarColor = Color.Transparent,
-                statusBarDarkIcons = false,
-                navigationBarDarkIcons = !isNightModeNow,
-                navigationBarColor = Color.Transparent,
-            )
-        },
-        key = state.targetValue,
-        confirmChange = { state.targetValue !== ModalBottomSheetValue.Hidden },
-    )*/
+    val isNightModeNow = isNightMode()
 
     val statusBarFillProgress = if (statusBarHeight == 0.dp) {
         0F
@@ -90,7 +80,7 @@ fun BottomSheetWrapper(
         focusManager.clearFocus()
     }
 
-    ModalBottomSheetLayout(
+   ModalBottomSheetLayout(
         cancelable = cancelable,
         sheetBackgroundColor = MaterialTheme.colorScheme.surface,
         sheetState = state,
@@ -100,7 +90,21 @@ fun BottomSheetWrapper(
             topStart = CornerSize(28.dp * (1F - statusBarFillProgress)),
             topEnd = CornerSize(28.dp * (1F - statusBarFillProgress)),
         ),
+       modifier = Modifier.fillMaxWidth(),
         sheetContent = {
+            setSystemStyle(
+                style = {
+                    SystemBarState(
+                        statusBarColor = Color.Transparent,
+                        statusBarDarkIcons = !isNightModeNow,
+                        navigationBarDarkIcons = !isNightModeNow,
+                        navigationBarColor = Color.Transparent,
+                    )
+                },
+                key = statusBarFillProgress,
+                confirmChange = { statusBarFillProgress > 0.5F },
+            )
+
             Box(
                 modifier = Modifier
                     .padding(
@@ -130,7 +134,6 @@ fun BottomSheetWrapper(
             }
         }
     ) {}
-
     BackHandler(state.isVisible) {
         if (cancelable) {
             coroutineScope.launch {

@@ -8,10 +8,8 @@ import androidx.lifecycle.Observer
 @Composable
 fun <T> observeLiveData(data: MutableLiveData<T>, callback: Observer<T>) {
     val lifecycleOwner by rememberUpdatedState(LocalLifecycleOwner.current)
-
     DisposableEffect(lifecycleOwner) {
         data.observeForever(callback)
-
         onDispose {
             data.removeObserver(callback)
         }

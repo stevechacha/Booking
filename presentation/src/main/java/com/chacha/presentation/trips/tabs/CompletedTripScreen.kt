@@ -18,9 +18,10 @@ import androidx.compose.ui.unit.dp
 import com.chacha.presentation.trips.component.MyTripCardItem
 
 @Composable
+@Preview
 fun CompletedTripScreen() {
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = PaddingValues(16.dp)
         ){

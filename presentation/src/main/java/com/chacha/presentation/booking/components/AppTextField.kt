@@ -4,19 +4,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -24,15 +23,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,26 +38,25 @@ fun AppTextField(
     value: String = "",
     onValueChange: (String) -> Unit,
     hint: String = "",
-    maxLength: Int = 50,
+    hint2: String = "",
+    maxLength: Int = 40,
     maxLines: Int = 1,
-    enabled: Boolean = true,
-    textStyle: TextStyle = LocalTextStyle.current,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
+    enabled: Boolean = false,
     singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Text,
-    isPasswordToggleDisplayed: Boolean = keyboardType == KeyboardType.Password,
-    isPasswordVisible: Boolean = false,
-    colors: TextFieldColors = TextFieldDefaults.textFieldColors(
-        containerColor = Color.Transparent,
+    colors: TextFieldColors = TextFieldDefaults.colors(
+        disabledTextColor = Color.Transparent,
+        focusedContainerColor = Color.Transparent,
+        unfocusedContainerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent,
         cursorColor = Color.Transparent,
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
         disabledIndicatorColor = Color.Transparent,
         errorIndicatorColor = Color.Transparent,
-        disabledTextColor = Color.Transparent,
     ),
     title: String = "",
-    onClick: () -> Unit = {}
+    readOnly: Boolean = true,
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -68,59 +64,89 @@ fun AppTextField(
     if (interactionSource.collectIsPressedAsState().value)
         expanded = !expanded
 
+    val textFieldColors = TextFieldDefaults.colors(
+        disabledTextColor = MaterialTheme.colorScheme.onSurface,
+        focusedContainerColor = Color.Transparent,
+        unfocusedContainerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent,
+        cursorColor = Color.Transparent,
+        errorCursorColor = Color.Transparent,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        disabledIndicatorColor = Color.Transparent,
+        errorIndicatorColor = Color.Transparent,
+        focusedLeadingIconColor = Color.Transparent,
+        unfocusedLeadingIconColor = Color.Transparent,
+        disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        errorLeadingIconColor = Color.Transparent,
+        focusedTrailingIconColor = Color.Transparent,
+        unfocusedTrailingIconColor = Color.Transparent,
+        disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        errorTrailingIconColor = Color.Transparent,
+        focusedLabelColor = Color.Transparent,
+        unfocusedLabelColor = Color.Transparent,
+        disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        //For Icons
+        errorLabelColor = Color.Transparent,
+        disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(interactionSource, null, onClickLabel = value) {
+                onValueChange(value)
+            }
+            .wrapContentHeight(),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = title,
-            modifier = Modifier.fillMaxWidth(),
-            fontSize = 14.sp
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(interactionSource, null, onClickLabel = title) {
+                    onValueChange(title)
+                },
+            style = MaterialTheme.typography.labelSmall
         )
-        Spacer(modifier = Modifier.height(5.dp))
-        BasicTextField(
-            value = value,
-            onValueChange ={
-                if (it.length <= maxLength) {
+
+        BoxWithConstraints(
+            modifier = Modifier.clipToBounds(),
+            contentAlignment = Alignment.Center
+        ) {
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(interactionSource, null, onClickLabel = value) {
+                        onValueChange(value)
+                    }
+                    .requiredWidth(maxWidth + 16.dp)
+                    .offset(x = (-8).dp, y = (-8).dp),
+                value = value,
+                onValueChange = {
                     onValueChange(it)
-                }
-            },
-            maxLines = maxLines,
-            visualTransformation = visualTransformation,
-            interactionSource = interactionSource,
-            enabled = enabled,
-            singleLine = singleLine,
-            textStyle = textStyle,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = keyboardType
-            ),
-            decorationBox = { innerTextField ->
-                TextFieldDefaults.TextFieldDecorationBox(
-                    value = value,
-                    visualTransformation = if (!isPasswordVisible && isPasswordToggleDisplayed) {
-                        PasswordVisualTransformation()
-                    } else {
-                        VisualTransformation.None
-                    },
-                    innerTextField = innerTextField,
-                    singleLine = singleLine,
-                    enabled = enabled,
-                    colors = colors,
-                    interactionSource = interactionSource,
-                    contentPadding = PaddingValues(start=0.dp,end=0.dp, bottom = 12.dp),
-                    placeholder = {
+                },
+                enabled = enabled,
+                maxLines = maxLines,
+                placeholder = {
                         Text(
                             text = hint,
-                            color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
                             textAlign = TextAlign.Start,
-                            modifier = modifier.clickable { onClick() },
-                            fontSize = 14.sp
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable(interactionSource, null, onClickLabel = hint) {
+                                    onValueChange(hint)
+                                },
+                            color = LocalContentColor.current.copy(alpha = ContentAlpha.medium),
+                            style = MaterialTheme.typography.labelMedium
                         )
-                    }
-                )
-            },
-            modifier = modifier.fillMaxWidth(),
-            readOnly = true
-        )
+
+                },
+                colors = textFieldColors,
+                readOnly = readOnly,
+            )
+        }
+
+
     }
 }

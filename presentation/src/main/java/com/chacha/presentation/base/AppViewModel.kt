@@ -22,8 +22,8 @@ data class PathState (
     val args: Map<String, Any?> = emptyMap(),
     val callback: (result: Map<String, Any?>) -> Unit = {},
 )
-
-class AppViewModel(
+@HiltViewModel
+class AppViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -32,6 +32,9 @@ class AppViewModel(
     fun openSheet(state: PathState) {
         sheetStates.value = sheetStates.value!!.plus(Pair(state.name, state))
     }
+
+    var statusBarStack: MutableList<() -> SystemBarState> = emptyList<() -> SystemBarState>().toMutableList()
+
 
     fun closeSheet(name: String) {
         sheetStates.value = sheetStates.value!!.minus(name)

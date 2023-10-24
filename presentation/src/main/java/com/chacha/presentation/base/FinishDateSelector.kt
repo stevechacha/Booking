@@ -17,9 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chacha.presentation.R
-import com.chacha.presentation.calendar.Calendar
-import com.chacha.presentation.calendar.model.CalendarState
-import com.chacha.presentation.calendar.model.selectedDatesFormatted
+import com.chacha.presentation.base.calendar.Calendar
+import com.chacha.presentation.base.calendar.model.CalendarState
+import com.chacha.presentation.base.calendar.model.selectedDatesFormatted
 import com.chacha.presentation.common.theme.BookingTheme
 import com.chacha.presentation.util.toDate
 import com.chacha.presentation.util.toLocalDate

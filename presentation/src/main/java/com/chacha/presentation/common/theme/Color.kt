@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
+val HintGray = Color(0xFF8B8B8B)
+
 val PrimaryColor = Color(0xffFF4500)
 val PrimaryLightColor = Color(0xffffe3d5)
 
