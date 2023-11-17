@@ -22,20 +22,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.chacha.presentation.R
-import com.chacha.presentation.booking.BookingUiEvent
 import com.chacha.presentation.booking.BookingUiViewModel
-import com.chacha.presentation.booking.parsedDate
 import com.chacha.presentation.booking.components.BookingCard
-import com.chacha.presentation.booking.components.PassengerCardItem
 import com.chacha.presentation.booking.components.ReturnDateBookingCard
 import com.chacha.presentation.booking.components.VehicleCardItem
 import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheet
 import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheetLayout
-import com.chacha.presentation.booking.booking_destination_list.BusBooking
+import com.chacha.presentation.booking.model.BusBooking
 import com.chacha.presentation.common.components.ContinueButton
-import com.chacha.presentation.modal_sheet.WeBookingModalSheet
+import com.chacha.presentation.common.modal_sheet.WeBookingModalSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
-import java.time.LocalDateTime
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -59,10 +55,8 @@ fun ReturnBookingScreen(
     val departure = bookingUiState.departurePlace
     val destination = bookingUiState.destinationPlace
     val departureDate = bookingUiState.departureDate
-
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
     var currentBottomSheet: BookingTypeBottomSheet? by remember { mutableStateOf(null) }
-    val dateTime = LocalDateTime.now()
     var showSearchResults by remember { mutableStateOf(true) }
     var searchResults by remember { mutableStateOf<List<BusBooking>>(emptyList()) }
 
@@ -97,8 +91,6 @@ fun ReturnBookingScreen(
 
             },
         )
-
-
 
         VehicleCardItem(
             bookingUiState = bookingUiState,
@@ -135,7 +127,7 @@ fun ReturnBookingScreen(
                 BookingTypeBottomSheet.DESTINATION -> sheetStateFullyExpanded
                 BookingTypeBottomSheet.ONE_BOOKING_DATE -> sheetStateFullyExpanded
                 BookingTypeBottomSheet.RETURN_DATE -> sheetStateFullyExpanded
-                BookingTypeBottomSheet.PASSENGERS -> sheetStatePartiallyExpanded
+                BookingTypeBottomSheet.PASSENGERS -> sheetStateFullyExpanded
                 BookingTypeBottomSheet.VEHICLE_TYPE -> sheetStatePartiallyExpanded
                 null -> sheetStateFullyExpanded
             }

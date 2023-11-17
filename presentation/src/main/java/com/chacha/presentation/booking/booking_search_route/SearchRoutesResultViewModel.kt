@@ -12,7 +12,6 @@ class SearchRoutesResultViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel(){
 
-
     var searchRoutesResults by mutableStateOf<SearchRoutesResults>(SearchRoutesResults())
     private val moshi = Moshi.Builder()
         .addLast(KotlinJsonAdapterFactory())

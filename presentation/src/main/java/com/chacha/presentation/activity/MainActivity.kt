@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color.TRANSPARENT
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -15,6 +16,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import com.chacha.presentation.common.theme.BookingTheme
@@ -34,15 +37,12 @@ class MainActivity : ComponentActivity() {
     private val isDone: MutableState<Boolean> = mutableStateOf(false)
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
-
         val context = this.applicationContext
         lifecycleScope.launch { context.dataStore.data.first() }
         super.onCreate(savedInstanceState)
         setContent {
             val localContext = LocalContext.current
             LaunchedEffect(Unit) {
-               /* syncTheme(localContext)
-                syncOverrideLocale(localContext)*/
                 isDone.value = true
             }
             if (isDone.value) {

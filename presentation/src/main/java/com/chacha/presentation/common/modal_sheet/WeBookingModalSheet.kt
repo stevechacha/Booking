@@ -1,4 +1,4 @@
-package com.chacha.presentation.modal_sheet
+package com.chacha.presentation.common.modal_sheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

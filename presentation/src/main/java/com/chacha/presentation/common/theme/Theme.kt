@@ -90,12 +90,13 @@ fun BookingTheme(
     }
 
     val view = LocalView.current
-    val systemUiController = rememberSystemUiController()
     if (!view.isInEditMode) {
         SideEffect {
-            systemUiController.setSystemBarsColor(
-                color =  colorScheme.background
-            )
+            val window = (view.context as Activity).window
+            window.statusBarColor = colorScheme.background.toArgb()
+            window.navigationBarColor = colorScheme.background.toArgb()
+            WindowCompat.getInsetsController(window,view).isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window,view).isAppearanceLightNavigationBars = !darkTheme
         }
     }
 

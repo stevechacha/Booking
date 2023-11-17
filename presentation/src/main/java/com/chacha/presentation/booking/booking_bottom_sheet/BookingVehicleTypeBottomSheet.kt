@@ -89,7 +89,7 @@ fun BookingVehicleTypeBottomSheet(
 }
 
 @Composable
-fun VehicleTypeItem(
+private fun VehicleTypeItem(
     vehicleType: VehicleType,
     selected: Boolean = false,
     onSelected: (VehicleType) -> Unit,
@@ -100,32 +100,28 @@ fun VehicleTypeItem(
         modifier = Modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .clickable(interactionSource, null, onClickLabel = vehicleType.type) {
+            .clickable(interactionSource, null,
+                onClickLabel = vehicleType.type
+            ) {
                 onSelected(vehicleType)
             }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+            modifier = Modifier.fillMaxWidth().padding(8.dp)
         ) {
             Spacer(modifier = Modifier.width(8.dp))
             Image(
                 painter = painterResource(id = icon) ,
                 contentDescription = vehicleType.type,
-                modifier = Modifier
-                    .width(30.dp)
-                    .height(100.dp)
+                modifier = Modifier.width(30.dp).height(100.dp)
             )
             Text(text = vehicleType.type)
             Spacer(modifier = Modifier.weight(1f))
             RadioButton(
                 selected = selected,
-                onClick = {
-                    onSelected(vehicleType)
-                }
+                onClick = { onSelected(vehicleType) }
             )
 
         }

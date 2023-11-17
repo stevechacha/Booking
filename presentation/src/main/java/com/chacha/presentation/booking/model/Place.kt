@@ -1,4 +1,4 @@
-package com.chacha.presentation.booking.booking_destination_list
+package com.chacha.presentation.booking.model
 
 data class Place(
     val name: String,

@@ -36,7 +36,7 @@ fun BookingDestinationList(
     val selectedDepartureTowns = remember { mutableSetOf<String>() }
 
     val destinationFlights = availableDestination.filterNot {
-        it.departure.city in selectedDepartureTowns
+        it.departureCity.city in selectedDepartureTowns
     }
     LaunchedEffect(Unit ){
         bookingUiViewModel.uiState.value.availableDeparture
@@ -69,7 +69,7 @@ fun BookingDestinationList(
                     place = flight,
                     onSelectPlaceClick = { selectedFlight ->
                         bookingUiViewModel.handleUiEvent(
-                            BookingUiEvent.DestinationPlaceSelected(place = selectedFlight.destination.city)
+                            BookingUiEvent.DestinationPlaceSelected(place = selectedFlight.destinationCity.city)
                         )
                         onClose()
                     },

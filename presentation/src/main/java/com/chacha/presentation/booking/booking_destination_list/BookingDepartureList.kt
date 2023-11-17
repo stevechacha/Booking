@@ -39,7 +39,7 @@ fun BookingDepartureList(
     val selectedDepartureTowns = remember { mutableSetOf<String>() }
 
     val departureFlights = availableDepartures.filterNot {
-        it.destination.city in selectedDepartureTowns
+        it.destinationCity.city in selectedDepartureTowns
     }
 
     Scaffold(
@@ -76,16 +76,16 @@ fun BookingDepartureList(
                             place = flight,
                             onSelectPlaceClick = { selectedFlight ->
                                 bookingUiViewModel.handleUiEvent(
-                                    BookingUiEvent.DeparturePlaceSelected(place = selectedFlight.departure.city)
+                                    BookingUiEvent.DeparturePlaceSelected(place = selectedFlight.departureCity.city)
                                 )
                                 bookingUiViewModel.handleUiEvent(
-                                    BookingUiEvent.DeparturePickupStationSelected(station = selectedFlight.departure.code)
+                                    BookingUiEvent.DeparturePickupStationSelected(station = selectedFlight.departureCity.code)
                                 )
                                 bookingUiViewModel.handleUiEvent(
-                                    BookingUiEvent.DeparturePickupStationSelected(station = selectedFlight.destination.city)
+                                    BookingUiEvent.DeparturePickupStationSelected(station = selectedFlight.destinationCity.city)
                                 )
                                 // Add the selected departure town to the set
-                                selectedDepartureTowns.add(selectedFlight.destination.city)
+                                selectedDepartureTowns.add(selectedFlight.destinationCity.city)
                                 onClose()
                             },
                         )

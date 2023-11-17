@@ -138,7 +138,93 @@
     <string name="contribute" translatable="false">Contribute</string>
     <string name="developer" translatable="false">Development &amp; design:</string>
 
-<!--    Booking TextField-->
+    <!--    MoreScreen Hint-->
+    <string name="notifications_title" translatable="false">Notifications</string>
+    <string name="notifications_subtitle" translatable="false">View and manage your notifications</string>
+    <string name="security_title" translatable="false">Security</string>
+    <string name="security_subtitle" translatable="false">Change your sign-in details and password</string>
+    <string name="support_title" translatable="false">Support</string>
+    <string name="support_subtitle" translatable="false">Email,call or find us on social media</string>
+    <string name="change_language_title" translatable="false">Change Language</string>
+    <string name="recommend_equity_to_friend_title" translatable="false">Recommend Equity mobile to a friend</string>
+    <string name="sign_out" translatable="false">Sign out</string>
+
+    <!--    Security Screen Hint-->
+    <string name="change_your_password_title" translatable="false">Change your password</string>
+    <string name="change_your_password_subtitle" translatable="false">Create a new password</string>
+    <string name="manage_your_pin_title" translatable="false">Manage your PIN</string>
+    <string name="manage_your_pin_subtitle" translatable="false">Reset or change your PIN</string>
+    <string name="manage_security_question_title" translatable="false">Manage security questions</string>
+    <string name="manage_security_question_subtitle" translatable="false">Update your security questions</string>
+    <string name="enable_touch_title" translatable="false">Enable Touch ID</string>
+    <string name="enable_touch_subtitle" translatable="false">Unlock with Touch ID</string>
+    <string name="manage_your_devices_title" translatable="false">Manage your devices</string>
+    <string name="manage_your_devices_subtitle" translatable="false">Manage the devices connected to your profile</string>
+
+
+    <string name="view_term_and_condition" translatable="false">View terms and condition</string>
+    <string name="reminders" translatable="false">Reminders</string>
+    <string name="reminder_desc" translatable="false">Get notified when your schedule payments are coming up</string>
+    <string name="service_update" translatable="false">Service updates</string>
+    <string name="service_update_desc" translatable="false">Get alert about any upgrades,outage or scheduled downtime</string>
+    <string name="events" translatable="false">Events</string>
+    <string name="events_desc" translatable="false">Get notified about any upcoming important events</string>
+    <string name="don_t_use_a_previous_or_old_pin" translatable="false">Don\'t use a previous or old PIN</string>
+    <string name="payment_reason" translatable="false">Payment reason</string>
+    <string name="optional" translatable="false">Optional</string>
+    <string name="enter_amount" translatable="false">Enter Amount</string>
+    <string name="continue_hint" translatable="false">Continue</string>
+    <string name="how_can_we_help_you" translatable="false">How can we help you?</string>
+    <string name="get_in_touch" translatable="false">Get in touch</string>
+
+
+    <!--    Get in Touch-->
+    <string name="contact_us" translatable="false">Contact us</string>
+    <string name="equity_contact" translatable="false">+254 763 063000</string>
+    <string name="email_us" translatable="false">Email us</string>
+    <string name="equity_email" translatable="false">info@equitybank.co.ke</string>
+    <string name="website" translatable="false">Visit our website</string>
+    <string name="equity_website" translatable="false">https://equitygroupholdings.com/ke/</string>
+    <string name="twitter" translatable="false">Follow us on Twitter</string>
+    <string name="equity_twitter" translatable="false">\@KeEquityBank</string>
+    <string name="facebook" translatable="false">Like us on Facebook</string>
+    <string name="equity_facebook" translatable="false">https://www.facebook.com/KeEquityBank/</string>
+    <string name="linkedin" translatable="false">Follow us on LinkedIn</string>
+    <string name="equity_linkedin" translatable="false">Equity Bank Limited</string>
+
+    <!--    Manage Devices-->
+    <string name="get_in_touch_desc" translatable="false">Reach out to us any time you need help and our talented team will gladly assist you</string>
+    <string name="which_device_would_you_like_to_remove" translatable="false">Which device would you like to remove?</string>
+    <string name="change_your_existing_pin" translatable="false">Change your existing PIN</string>
+    <string name="reset_your_pin" translatable="false">Reset your PIN</string>
+    <string name="reset_your_pin_if_you_ve_forgotten_it" translatable="false">Reset your PIN if you\'ve forgotten it</string>
+    <string name="make_sure_your_pin_easy" translatable="false">Make sure your PIN is easy to remember</string>
+    <string name="enter_current_pin" translatable="false">Enter your current PIN</string>
+    <string name="enter_new_pin" translatable="false">Enter your new PIN</string>
+
+
+    <!--    Notifications-->
+    <string name="select_the_account_you_want_to_get_transaction_alert_for" translatable="false">Select the account you want to get transaction alert for</string>
+    <string name="how_do_you_want_to_receive_your_alerts" translatable="false">How do you want to receive your alerts?</string>
+    <string name="notification_disabled" translatable="false">Notifications disabled</string>
+    <string name="sms_alert" translatable="false">SMS alerts</string>
+    <string name="alert_enabled" translatable="false">Alert enabled</string>
+    <string name="notification_enabled" translatable="false">Notifications enabled</string>
+    <string name="select_the_account_you_want_to_get_reminders_alert_for" translatable="false">Select the accounts you want to get reminders for</string>
+    <string name="how_do_you_want_to_receive_your_notification" translatable="false">How do you want to receive your notifications?</string>
+    <string name="email_notification" translatable="false">Email</string>
+    <string name="push_notification" translatable="false">Push notification</string>
+    <string name="get_in_touch_subtitle" translatable="false">Email,call or find us on social media</string>
+    <string name="western_union_receive_money_subtitle" translatable="false">Receive money by entering a Western Union tracking number</string>
+    <string name="sign_in_with_touch_id" translatable="false">Sign in with Touch ID</string>
+    <string name="recommed" translatable="false">Recommend</string>
+    <string name="activate_chat_banking" translatable="false">Activate Chat Banking</string>
+    <string name="activate_chat_banking_desc" translatable="false">Transact with Equity\'s Virtual Assistant</string>
+    <string name="add_an_equity_account" translatable="false">Add an Equity account</string>
+    <string name="add_an_equity_account_des" translatable="false">An an Equity account to your profile</string>
+    <string name="dark_mode" translatable="false">Dark mode</string>
+
+    <!--    Booking TextField-->
     <string name="cd_menu" translatable="false">Menu</string>
     <string name="cd_back" translatable="false">Back</string>
     <string name="cd_loading" translatable="false">Loading</string>

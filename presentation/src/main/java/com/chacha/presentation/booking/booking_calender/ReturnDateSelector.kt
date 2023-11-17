@@ -78,7 +78,7 @@ fun ReturnDateSelector(
     val today = remember { LocalDate.now() }
     var selection by remember { mutableStateOf(DateSelection()) }
     val daysOfWeek = remember { daysOfWeek() }
-//    StatusBarColorUpdateEffect(Color.White)
+    StatusBarColorUpdateEffect(Color.White)
 
     Box(
         modifier = Modifier

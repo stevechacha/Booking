@@ -5,9 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.with
@@ -23,7 +21,7 @@ import com.chacha.presentation.booking.ANIMATED_CONTENT_ANIMATION_DURATION
 import com.chacha.presentation.booking.booking_destination_list.BookingDepartureList
 import com.chacha.presentation.booking.booking_destination_list.BookingDestinationList
 import com.chacha.presentation.booking.BookingUiViewModel
-import com.chacha.presentation.booking.booking_destination_list.BusBooking
+import com.chacha.presentation.booking.model.BusBooking
 import com.chacha.presentation.booking.booking_search_route.SearchRoutesResultsContent
 import com.chacha.presentation.booking.booking_calender.OneWayDateSelector
 import com.chacha.presentation.booking.booking_calender.ReturnDateSelector
@@ -85,11 +83,10 @@ fun BookingTypeBottomSheetLayout(
             BookingTypeBottomSheet.PASSENGERS -> SearchRoutesResultsContent(
                 searchResults = searchResults,
                 onClick = {searchResults->
-                    navController.navigate("weather/${searchResults.destination.city}/${searchResults.destination.code}/${searchResults.departure.city}/${searchResults.departure.code}")
+                    navController.navigate("weather/${searchResults.destinationCity.city}/${searchResults.destinationCity.code}/${searchResults.departureCity.city}/${searchResults.departureCity.code}")
                       closeSheet()
                           },
                 navController = navController,
-
 
             )
             BookingTypeBottomSheet.VEHICLE_TYPE -> BookingVehicleTypeBottomSheet(onClose = closeSheet)

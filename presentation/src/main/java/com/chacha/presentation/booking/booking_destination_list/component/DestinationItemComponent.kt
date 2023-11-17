@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.chacha.presentation.booking.booking_destination_list.BusBooking
+import com.chacha.presentation.booking.model.BusBooking
 
 @Composable
 fun DestinationItemComponent(
@@ -42,11 +42,11 @@ fun DestinationItemComponent(
                 verticalArrangement = Arrangement.Top
             ) {
                 Text(
-                    text = place.destination.city,
+                    text = place.destinationCity.city,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = place.destination.code,
+                    text = place.destinationCity.code,
                     modifier = Modifier.fillMaxWidth()
                 )
             }

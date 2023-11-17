@@ -38,7 +38,6 @@ fun AppTextField(
     value: String = "",
     onValueChange: (String) -> Unit,
     hint: String = "",
-    hint2: String = "",
     maxLength: Int = 40,
     maxLines: Int = 1,
     enabled: Boolean = false,
@@ -86,7 +85,6 @@ fun AppTextField(
         focusedLabelColor = Color.Transparent,
         unfocusedLabelColor = Color.Transparent,
         disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        //For Icons
         errorLabelColor = Color.Transparent,
         disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
     )
@@ -146,7 +144,6 @@ fun AppTextField(
                 readOnly = readOnly,
             )
         }
-
 
     }
 }

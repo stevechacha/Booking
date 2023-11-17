@@ -208,7 +208,7 @@ fun TextRow(
     denseDescriptionOffset: Boolean = true,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
     descriptionTextStyle: TextStyle = MaterialTheme.typography.bodyMedium
-        .copy(color = LocalContentColor.current.copy(alpha = 0.6f)),
+        .copy(color = LocalContentColor.current.copy(alpha = 0.6f))
 ) {
     Column(modifier) {
         Box(Modifier.padding(top = 16.dp)) {

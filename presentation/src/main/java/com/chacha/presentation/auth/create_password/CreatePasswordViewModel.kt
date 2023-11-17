@@ -1,4 +1,4 @@
-package com.dev.chacha.presentation.auth.create_password
+package com.chacha.presentation.auth.create_password
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

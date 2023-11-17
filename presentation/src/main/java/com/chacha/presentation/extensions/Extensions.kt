@@ -30,3 +30,22 @@ fun dateValidator(): (Long) -> Boolean {
         timeInMillis >= currentCalendar.timeInMillis && timeInMillis <= endCalendarDate.timeInMillis
     }
 }
+
+fun getInitials(name: String): String {
+    val names = name.split(" ")
+    val initials = if (names.size >= 2) {
+        names[0].trim().first().toString().trim() + names[1].trim().first().toString().trim()
+    } else {
+        names[0].trim().first().toString().trim()
+    }
+    return initials.uppercase()
+}
+
+val now = Calendar.getInstance() // get the current time
+val hour = now.get(Calendar.HOUR_OF_DAY) // get the hour component of the current time
+val greeting = when (hour) { // determine the appropriate greeting based on the hour
+    in 0..11 -> "Good morning"
+    in 12..17 -> "Good afternoon"
+    in 18..20 -> "Good evening"
+    else -> "Goodnight"
+}

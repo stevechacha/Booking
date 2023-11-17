@@ -15,7 +15,7 @@ import com.chacha.presentation.R
 import com.chacha.presentation.common.components.AppOutlinedTextField
 import com.chacha.presentation.common.components.AppToolbar
 import com.chacha.presentation.common.theme.BookingTheme
-import com.dev.chacha.presentation.auth.create_password.CreatePasswordViewModel
+import com.chacha.presentation.auth.create_password.CreatePasswordViewModel
 
 @Composable
 fun ResetPinScreen(
@@ -95,14 +95,12 @@ fun ResetPinContent(
                         }
                     )
 
-                    /* Button */
 
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
                     ) {
-
                         Button(
                             onClick = { onClickAction() },
                             modifier = Modifier

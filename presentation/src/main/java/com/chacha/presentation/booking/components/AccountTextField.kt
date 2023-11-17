@@ -39,7 +39,7 @@ fun AccountTextField(
     accountNumber: String = "",
     hint: String = "",
     maxLines: Int = 1,
-    readOnly: Boolean = true,
+    readOnly: Boolean = false,
     enabled: Boolean = true,
     textFieldColors: TextFieldColors = TextFieldDefaults.textFieldColors(
         containerColor = Color.Transparent,
@@ -55,13 +55,7 @@ fun AccountTextField(
 
     Column(
         modifier = modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource,
-                null, onClickLabel = title
-            ) {
-                onValueChange(title)
-            },
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
@@ -86,42 +80,11 @@ fun AccountTextField(
                     },
                     maxLines = maxLines,
                     placeholder = {
-                        Row(
-                            modifier = modifier
-                                .fillMaxWidth()
-                                .clickable { onValueChange(hint) },
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Column(verticalArrangement = Arrangement.Center) {
-                                Text(
-                                    text = accountNumber,
-                                    modifier = modifier.clickable(
-                                        interactionSource,null, onClickLabel = accountNumber
-                                    ){
-                                        onValueChange(accountNumber)
-                                    },
-                                    color = MaterialTheme.colorScheme.onBackground,
-                                    style = MaterialTheme.typography.labelSmall
-
-                                )
-                                Text(
-                                    text = hint,
-                                    modifier = modifier
-                                        .clickable(interactionSource,null, onClickLabel = hint) {
-                                        onValueChange(hint)
-                                        },
-                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = .56f),
-                                    style = MaterialTheme.typography.labelSmall
-
-
-                                )
-                            }
-
-                            Icon(
-                                imageVector = Icons.Outlined.KeyboardArrowDown,
-                                contentDescription = null,
-                            )
-                        }
+                        Text(
+                            text = hint,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = .56f),
+                            style = MaterialTheme.typography.labelSmall
+                        )
                     },
                     colors = textFieldColors,
                     readOnly = readOnly,

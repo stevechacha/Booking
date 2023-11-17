@@ -25,7 +25,8 @@ fun AppToolbar(
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
     showBackArrow: Boolean = false,
-    showForwardArrow: Boolean = false
+    showForwardArrow: Boolean = false,
+    onNavigateBack:()->Unit = {}
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -37,7 +38,7 @@ fun AppToolbar(
         },
         navigationIcon = {
             if (showBackArrow) {
-                IconButton(onClick = { /* doSomething() */ }) {
+                IconButton(onClick = { onNavigateBack() }) {
                     Image(
                         painter = painterResource(id = R.drawable.arrow_back),
                         contentDescription = "Localized description",

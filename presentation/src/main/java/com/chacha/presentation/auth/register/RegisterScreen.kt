@@ -39,6 +39,7 @@ fun RegisterContent(
     onClick: () -> Unit,
     onLoginClick: () -> Unit
 ) {
+    val (name, setName) = rememberSaveable { mutableStateOf("") }
     val (email, setEmail) = rememberSaveable { mutableStateOf("") }
     val (mobileNumber, setMobileNumber) = rememberSaveable { mutableStateOf("") }
     val (idNumber, setIdNumber) = rememberSaveable { mutableStateOf("") }
@@ -58,6 +59,13 @@ fun RegisterContent(
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            AppOutlinedTextField(
+                value = name,
+                onValueChange = { setName(it) },
+                hint = stringResource(id = R.string.name),
+                keyboardType = KeyboardType.Text
+            )
 
             AppOutlinedTextField(
                 value = email,

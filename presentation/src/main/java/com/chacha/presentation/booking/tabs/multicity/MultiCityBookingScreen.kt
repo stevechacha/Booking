@@ -9,7 +9,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -26,18 +25,15 @@ import com.chacha.presentation.R
 import com.chacha.presentation.booking.BookingUiEvent
 import com.chacha.presentation.booking.BookingUiViewModel
 import com.chacha.presentation.booking.components.MultiCityBookingCard
-import com.chacha.presentation.booking.components.PassengerCardItem
 import com.chacha.presentation.booking.components.VehicleCardItem
 import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheet
 import com.chacha.presentation.booking.booking_bottom_sheet.BookingTypeBottomSheetLayout
 import com.chacha.presentation.booking.booking_calender.dateFormatterr
 import com.chacha.presentation.booking.booking_component.FromUserInput
 import com.chacha.presentation.booking.booking_component.ToUserInput
-import com.chacha.presentation.booking.booking_destination_list.BusBooking
 import com.chacha.presentation.common.components.ContinueButton
-import com.chacha.presentation.modal_sheet.WeBookingModalSheet
+import com.chacha.presentation.common.modal_sheet.WeBookingModalSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
-import java.time.LocalDateTime
 
 @OptIn( ExperimentalPagerApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
@@ -63,7 +59,6 @@ fun MultiCityBookingScreen(
 
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
     var currentBottomSheet: BookingTypeBottomSheet? by remember { mutableStateOf(null) }
-//    var searchResults by remember { mutableStateOf<List<BusBooking>>(emptyList()) }
 
     var searchResults = bookingUiState.searchResults
     var showSearchResults by remember { mutableStateOf(false) }
@@ -108,7 +103,6 @@ fun MultiCityBookingScreen(
                     modifier = Modifier.clickable(interactionSource,null){
                         isSheetOpen = true
                         currentBottomSheet = BookingTypeBottomSheet.ONE_BOOKING_DATE
-
                     },
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onBackground,
@@ -129,7 +123,6 @@ fun MultiCityBookingScreen(
                             bookingUiViewModel.handleUiEvent(BookingUiEvent.DeparturePlaceSelected(it))
                         }
                     )
-
 
             },
             toContent = {

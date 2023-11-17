@@ -2,13 +2,12 @@ package com.chacha.presentation.booking
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.chacha.presentation.booking.booking_destination_list.BusBooking
-import com.chacha.presentation.util.toDate
-import com.chacha.presentation.util.toLocalDate
+import com.chacha.presentation.booking.model.BusBooking
+import com.chacha.presentation.booking.model.Gender
+import com.chacha.presentation.booking.model.SeatDetails
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -38,10 +37,21 @@ data class BookingUiState(
     val availableDepartures: List<BusBooking> = emptyList(),
     val searchDepartureDestination: String = "",
     val searchDestination: String = "",
-    val searchResults:List<BusBooking> = emptyList()
+    val searchResults:List<BusBooking> = emptyList(),
+    val passengers : List<BusBooking.Passenger> = emptyList(),
+    val seatDetailList: List<SeatDetails> = emptyList(),
+    val bookingDetails: BusBooking? = null,
+
+    // Passenger
+    val gender: Gender = Gender.MALE,
+    val name: String = "",
+    val seatNumber: String = "",
+    val nationality: String = "",
+    val idNumber: String = "",
+    val mobileNumber: String = "",
 
 
-){
+    ){
     val isFormValid: Boolean
         get() = departurePlace.isNotEmpty() &&
                 destinationPlace.isNotEmpty() &&
